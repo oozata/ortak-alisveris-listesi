@@ -7,7 +7,7 @@
         {"ad": "Domates", "emoji": "🍅"},
         {"ad": "Salatalık", "emoji": "🥒"},
         {"ad": "Patates", "emoji": "🥔"},
-        {"ad": "Soğan", "emoji": ""},
+        {"ad": "Soğan", "emoji": "🧅"},
         {"ad": "Havuç", "emoji": "🥕"},
         {"ad": "Muz", "emoji": "🍌"},
         {"ad": "Elma", "emoji": "🍎"},
@@ -21,11 +21,11 @@
       "ikon": "🧀",
       "urunler": [
         {"ad": "Süt", "emoji": "🥛"},
-        {"ad": "Peynir", "emoji": ""},
+        {"ad": "Peynir", "emoji": "🧀"},
         {"ad": "Yumurta", "emoji": "🥚"},
-        {"ad": "Yoğurt", "emoji": ""},
+        {"ad": "Yoğurt", "emoji": "🥣"},
         {"ad": "Tereyağı", "emoji": "🧈"},
-        {"ad": "Zeytin", "emoji": ""},
+        {"ad": "Zeytin", "emoji": "🫒"},
         {"ad": "Bal", "emoji": "🍯"},
         {"ad": "Reçel", "emoji": "🍓"}
       ]
@@ -35,7 +35,7 @@
       "ikon": "🥩",
       "urunler": [
         {"ad": "Kıyma", "emoji": "🥩"},
-        {"ad": "Tavuk", "emoji": ""},
+        {"ad": "Tavuk", "emoji": "🐔"},
         {"ad": "Sucuk", "emoji": "🥓"},
         {"ad": "Sosis", "emoji": "🌭"},
         {"ad": "Köfte", "emoji": "🍖"}
@@ -47,7 +47,7 @@
       "urunler": [
         {"ad": "Deterjan", "emoji": "🧺"},
         {"ad": "Tuvalet Kağıdı", "emoji": "🧻"},
-        {"ad": "Sabun", "emoji": ""},
+        {"ad": "Sabun", "emoji": "🧼"},
         {"ad": "Şampuan", "emoji": "🧴"},
         {"ad": "Bulaşık Deterjanı", "emoji": "🧽"}
       ]
