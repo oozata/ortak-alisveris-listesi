@@ -198,7 +198,7 @@
         }
 
         .settings-section {
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
         .settings-section h3 {
@@ -361,6 +361,39 @@
             text-align: center;
             padding: 30px;
             color: #999;
+            font-size: 14px;
+        }
+
+        /* Listelerim Ekranı */
+        .lists-screen {
+            padding: 20px;
+        }
+
+        .lists-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .lists-header button {
+            background: rgba(0,0,0,0.05);
+            border: none;
+            padding: 10px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .lists-header h2 {
+            flex: 1;
+            color: #333;
+            font-size: 22px;
+        }
+
+        .lists-subtitle {
+            color: #666;
+            margin-bottom: 20px;
             font-size: 14px;
         }
 
@@ -1158,16 +1191,24 @@
                 </div>
             </div>
 
+            <!-- Listelerim Butonu -->
             <div class="settings-section">
-                <h3>Listelerim</h3>
-                <div id="myListsContainer">
-                    <div class="loading" style="padding: 20px;">
-                        <div class="spinner"></div>
-                        <p>Yükleniyor...</p>
-                    </div>
-                </div>
+                <button class="setting-btn" onclick="showMyListsScreen()" style="padding: 18px;">
+                    <span class="setting-icon">📋</span>
+                    <span style="flex: 1; text-align: left; font-weight: bold; font-size: 16px;">Listelerim</span>
+                    <span style="color: #999;">→</span>
+                </button>
             </div>
 
+            <!-- Yeni Liste Butonu -->
+            <div class="settings-section">
+                <button class="action-btn shared" onclick="showNewListModal()">
+                    <span>➕</span>
+                    <span>Yeni Liste Oluştur</span>
+                </button>
+            </div>
+
+            <!-- Ayarlar -->
             <div class="settings-section">
                 <h3>Ayarlar</h3>
                 <button class="setting-btn" onclick="showColorPicker()">
@@ -1183,18 +1224,6 @@
             </div>
 
             <div class="settings-section">
-                <h3>Yeni Liste</h3>
-                <button class="action-btn personal" onclick="createPersonalList()">
-                    <span>📝</span>
-                    <span>Kişisel Liste Oluştur</span>
-                </button>
-                <button class="action-btn shared" onclick="showCreateSharedList()">
-                    <span>👥</span>
-                    <span>Paylaşımlı Liste Oluştur</span>
-                </button>
-            </div>
-
-            <div class="settings-section">
                 <button class="setting-btn danger" onclick="deleteAccount()">
                     <span class="setting-icon">🗑️</span>
                     <span style="flex: 1; text-align: left;">Hesabımı Sil</span>
@@ -1203,6 +1232,21 @@
                     <span class="setting-icon">🚪</span>
                     <span style="flex: 1; text-align: left;">Çıkış Yap</span>
                 </button>
+            </div>
+        </div>
+
+        <!-- Listelerim Ekranı -->
+        <div id="myListsScreen" class="screen lists-screen">
+            <div class="lists-header">
+                <button onclick="showDashboard()">←</button>
+                <h2>Listelerim</h2>
+            </div>
+            <p class="lists-subtitle">Tüm listelerine buradan erişebilirsin</p>
+            <div id="myListsContainer">
+                <div class="loading" style="padding: 20px;">
+                    <div class="spinner"></div>
+                    <p>Yükleniyor...</p>
+                </div>
             </div>
         </div>
 
@@ -1353,7 +1397,7 @@
                     <div class="form-group">
                         <label class="urgent-toggle">
                             <input type="checkbox" id="urgentCheck2">
-                            <span>🚨 Acil İhtiyaç</span>
+                            <span> Acil İhtiyaç</span>
                         </label>
                     </div>
 
@@ -1382,6 +1426,28 @@
                 <button class="cancel" onclick="closeColorPicker()">İptal</button>
                 <button class="save" onclick="saveColor()">Kaydet</button>
             </div>
+        </div>
+    </div>
+
+    <!-- Yeni Liste Modal -->
+    <div class="modal" id="newListModal">
+        <div class="modal-content">
+            <h3>Yeni Liste Oluştur</h3>
+            <p style="margin-bottom: 20px; color: #666;">Hangi tür liste oluşturmak istiyorsun?</p>
+            
+            <button class="action-btn personal" onclick="createPersonalListFromModal()" style="margin-bottom: 15px;">
+                <span>📝</span>
+                <span>Kişisel Liste</span>
+            </button>
+            
+            <button class="action-btn shared" onclick="showCreateSharedListFromModal()">
+                <span>👥</span>
+                <span>Paylaşımlı Liste</span>
+            </button>
+            
+            <button class="cancel-selection-btn" onclick="closeNewListModal()" style="margin-top: 15px;">
+                İptal
+            </button>
         </div>
     </div>
 
@@ -1638,7 +1704,6 @@
             await setDoc(doc(db, "users", currentUser.uid), data, { merge: true });
         }
 
-        // Kullanıcının katıldığı odaları kaydet
         async function addRoomToUser(roomId) {
             const userDoc = await getDoc(doc(db, "users", currentUser.uid));
             const userData = userDoc.data() || {};
@@ -1650,7 +1715,6 @@
             }
         }
 
-        // Listeleri yükle
         async function loadMyLists() {
             const container = document.getElementById('myListsContainer');
             
@@ -1678,28 +1742,31 @@
                     html += `
                         <div class="no-lists">
                             Henüz paylaşımlı listen yok.<br>
-                            "Paylaşımlı Liste Oluştur" butonunu kullan.
+                            "Yeni Liste Oluştur" butonunu kullan.
                         </div>
                     `;
                 } else {
                     for (const roomId of joinedRooms) {
-                        const roomDoc = await getDoc(doc(db, "rooms", roomId));
-                        if (roomDoc.exists()) {
-                            const roomData = roomDoc.data();
-                            const membersRef = collection(db, "rooms", roomId, "members");
-                            const membersSnapshot = await getDocs(membersRef);
-                            const memberCount = membersSnapshot.size;
-                            
-                            html += `
-                                <div class="list-card shared" onclick="openSharedList('${roomId}')">
-                                    <div class="list-icon">👥</div>
-                                    <div class="list-info">
-                                        <div class="list-name">Paylaşımlı Liste</div>
-                                        <div class="list-meta">${memberCount} kişi • Kod: ${roomId}</div>
+                        try {
+                            const roomDoc = await getDoc(doc(db, "rooms", roomId));
+                            if (roomDoc.exists()) {
+                                const membersRef = collection(db, "rooms", roomId, "members");
+                                const membersSnapshot = await getDocs(membersRef);
+                                const memberCount = membersSnapshot.size;
+                                
+                                html += `
+                                    <div class="list-card shared" onclick="openSharedList('${roomId}')">
+                                        <div class="list-icon">👥</div>
+                                        <div class="list-info">
+                                            <div class="list-name">Paylaşımlı Liste</div>
+                                            <div class="list-meta">${memberCount} kişi • Kod: ${roomId}</div>
+                                        </div>
+                                        <div class="list-badge shared">Ortak</div>
                                     </div>
-                                    <div class="list-badge shared">Ortak</div>
-                                </div>
-                            `;
+                                `;
+                            }
+                        } catch (err) {
+                            console.error("Oda yüklenemedi:", roomId, err);
                         }
                     }
                 }
@@ -1799,8 +1866,44 @@
             document.getElementById('colorPreview').style.background = currentUser.color || '#FFC107';
             document.getElementById('notificationsStatus').textContent = currentUser.notificationsMuted ? 'Kapalı' : 'Açık';
             document.getElementById('notificationsBtn').classList.toggle('active', !currentUser.notificationsMuted);
-            loadMyLists();
             showScreen('dashboardScreen');
+            document.getElementById('fab').style.display = 'none';
+        };
+
+        window.showMyListsScreen = function() {
+            showScreen('myListsScreen');
+            loadMyLists();
+        };
+
+        // Yeni Liste Modal
+        window.showNewListModal = function() {
+            document.getElementById('newListModal').classList.add('active');
+        };
+
+        window.closeNewListModal = function() {
+            document.getElementById('newListModal').classList.remove('active');
+        };
+
+        window.createPersonalListFromModal = async function() {
+            closeNewListModal();
+            try {
+                currentListType = 'personal';
+                currentRoomId = null;
+                await saveUserData({ currentListType: 'personal', currentRoomId: null });
+                showScreen('mainList');
+                document.getElementById('headerTitle').innerHTML = 'Listem <span class="list-type-badge personal">Kişisel</span>';
+                document.getElementById('roomCodeBtn').style.display = 'none';
+                document.getElementById('fab').style.display = 'flex';
+                startListeningToItems();
+            } catch (error) {
+                console.error("Kişisel liste hatası:", error);
+                showToast("Liste oluşturulamadı!");
+            }
+        };
+
+        window.showCreateSharedListFromModal = function() {
+            closeNewListModal();
+            showScreen('roomScreen');
             document.getElementById('fab').style.display = 'none';
         };
 
