@@ -68,14 +68,44 @@
             display: block;
         }
 
-        /* Login Screen */
         .login-screen {
             padding: 60px 20px;
             text-align: center;
         }
 
-        .login-screen .icon {
-            font-size: 100px;
+        /* Modern Logo Styles */
+        .logo-container {
+            margin-bottom: 40px;
+            animation: fadeInDown 0.6s ease-out;
+        }
+
+        .logo-wrapper {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.4);
+            margin-bottom: 20px;
+        }
+
+        .logo-icon {
+            width: 120px;
+            height: 120px;
+        }
+
+        .login-screen h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        .login-screen .subtitle {
+            color: #666;
+            font-size: 16px;
             margin-bottom: 40px;
         }
 
@@ -111,7 +141,17 @@
             flex-shrink: 0;
         }
 
-        /* Dashboard Screen */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         .dashboard-screen {
             padding: 40px 20px;
         }
@@ -212,24 +252,11 @@
             font-size: 24px;
         }
 
-        .color-picker-wrapper {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
         .color-preview {
             width: 40px;
             height: 40px;
             border-radius: 50%;
             border: 3px solid #333;
-        }
-
-        .list-actions {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-top: 30px;
         }
 
         .action-btn {
@@ -244,6 +271,7 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
+            width: 100%;
         }
 
         .action-btn.personal {
@@ -268,7 +296,6 @@
             box-shadow: 0 4px 12px rgba(255, 193, 7, 0.4);
         }
 
-        /* Room Screen */
         .room-screen {
             padding: 40px 20px;
             text-align: center;
@@ -328,7 +355,6 @@
             background: #757575;
         }
 
-        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -415,7 +441,6 @@
             background: var(--primary-hover);
         }
 
-        /* Liste */
         .list-container {
             padding: 20px;
             min-height: 400px;
@@ -531,7 +556,6 @@
             transform: scale(1.1);
         }
 
-        /* FAB */
         .fab {
             position: fixed;
             bottom: 30px;
@@ -555,7 +579,6 @@
             transform: scale(1.05);
         }
 
-        /* Ürün Ekleme */
         .add-form {
             padding: 30px 20px;
         }
@@ -682,7 +705,6 @@
             background: var(--primary-hover);
         }
 
-        /* Toast */
         .toast {
             position: fixed;
             top: 20px;
@@ -750,9 +772,40 @@
         <!-- Login Screen -->
         <div id="loginScreen" class="screen active">
             <div class="login-screen">
-                <div class="icon"></div>
-                <h1 style="margin-bottom: 10px;">CoupleList</h1>
-                <p style="color: #666; margin-bottom: 40px;">Ortak Liste, Ortak Hayat</p>
+                <!-- Modern Logo -->
+                <div class="logo-container">
+                    <div class="logo-wrapper">
+                        <svg class="logo-icon" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Shopping List Background -->
+                            <rect x="20" y="15" width="80" height="95" rx="8" fill="white" opacity="0.95"/>
+                            
+                            <!-- List Lines -->
+                            <line x1="35" y1="35" x2="85" y2="35" stroke="#667eea" stroke-width="3" stroke-linecap="round"/>
+                            <line x1="35" y1="50" x2="85" y2="50" stroke="#667eea" stroke-width="3" stroke-linecap="round"/>
+                            <line x1="35" y1="65" x2="70" y2="65" stroke="#667eea" stroke-width="3" stroke-linecap="round"/>
+                            
+                            <!-- Checkmarks -->
+                            <path d="M35 85 L42 92 L52 80" stroke="#4CAF50" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                            <path d="M58 85 L65 92 L75 80" stroke="#4CAF50" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                            
+                            <!-- Shopping Cart Overlay -->
+                            <path d="M75 25 L85 25 L82 40 L70 40" stroke="#764ba2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                            <rect x="50" y="40" width="35" height="25" rx="3" stroke="#764ba2" stroke-width="3" fill="none"/>
+                            <circle cx="58" cy="72" r="4" fill="#764ba2"/>
+                            <circle cx="77" cy="72" r="4" fill="#764ba2"/>
+                            
+                            <!-- Couple Icon (Two People) -->
+                            <circle cx="42" cy="30" r="6" fill="#667eea"/>
+                            <path d="M42 38 L42 44" stroke="#667eea" stroke-width="2.5" stroke-linecap="round"/>
+                            <circle cx="62" cy="30" r="6" fill="#764ba2"/>
+                            <path d="M62 38 L62 44" stroke="#764ba2" stroke-width="2.5" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                </div>
+                
+                <h1>CoupleList</h1>
+                <p class="subtitle">Ortak Liste, Ortak Hayat</p>
+                
                 <button class="google-signin-btn" onclick="loginWithGoogle()">
                     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -797,11 +850,11 @@
             <div class="settings-section">
                 <h3>Listeler</h3>
                 <button class="action-btn personal" onclick="createPersonalList()">
-                    <span></span>
+                    <span>📝</span>
                     <span>Kişisel Liste Oluştur</span>
                 </button>
                 <button class="action-btn shared" onclick="showCreateSharedList()">
-                    <span></span>
+                    <span>👥</span>
                     <span>Paylaşımlı Liste Oluştur</span>
                 </button>
             </div>
@@ -901,7 +954,7 @@
 
                     <div class="form-group">
                         <label>Not (Marka vb.)</label>
-                        <textarea id="noteInput" rows="2" placeholder="Örn: Sütaş, İçim..."></textarea>
+                    <textarea id="noteInput" rows="2" placeholder="Örn: Sütaş, İçim..."></textarea>
                     </div>
 
                     <div class="form-group">
@@ -950,7 +1003,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
         import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
-        import { getFirestore, collection, doc, setDoc, getDoc, updateDoc, deleteDoc, onSnapshot, query, orderBy, serverTimestamp, addDoc } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+        import { getFirestore, collection, doc, setDoc, getDoc, deleteDoc, onSnapshot, query, orderBy, serverTimestamp, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAXyKXdeLabkvxTs077439S5bCAmM61hk8",
@@ -977,15 +1030,12 @@
 
         const PRODUCTS_URL = "https://raw.githubusercontent.com/oozata/ortak-alisveris-listesi/refs/heads/main/products.json";
 
-        // Renk değiştirme fonksiyonu - CSS değişkenini günceller
         function applyThemeColor(color) {
             document.documentElement.style.setProperty('--primary-color', color);
-            // Hover rengi için biraz koyu ton hesapla
             const hoverColor = darkenColor(color, 10);
             document.documentElement.style.setProperty('--primary-hover', hoverColor);
         }
 
-        // Rengi koyulaştırma fonksiyonu
         function darkenColor(hex, percent) {
             const num = parseInt(hex.replace('#', ''), 16);
             const amt = Math.round(2.55 * percent);
@@ -1007,10 +1057,15 @@
             }
         }
 
+        async function saveUserData(data) {
+            await setDoc(doc(db, "users", currentUser.uid), data, { merge: true });
+        }
+
         onAuthStateChanged(auth, async (user) => {
             if (user) {
                 currentUser = user;
                 const userDoc = await getDoc(doc(db, "users", user.uid));
+                
                 if (userDoc.exists()) {
                     const userData = userDoc.data();
                     currentUser.color = userData.color || '#FFC107';
@@ -1023,8 +1078,20 @@
                     currentUser.colorName = 'yellow';
                     currentUser.notificationsMuted = false;
                     currentListType = 'personal';
+                    currentRoomId = null;
+                    
+                    await saveUserData({
+                        email: currentUser.email,
+                        displayName: currentUser.displayName,
+                        color: currentUser.color,
+                        colorName: currentUser.colorName,
+                        notificationsMuted: false,
+                        currentListType: 'personal',
+                        currentRoomId: null,
+                        createdAt: serverTimestamp()
+                    });
                 }
-                // Tema rengini uygula
+                
                 applyThemeColor(currentUser.color);
                 showDashboard();
             } else {
@@ -1065,14 +1132,17 @@
 
         window.toggleNotifications = async function() {
             if (!currentUser) return;
-            const newStatus = !currentUser.notificationsMuted;
-            await updateDoc(doc(db, "users", currentUser.uid), {
-                notificationsMuted: newStatus
-            });
-            currentUser.notificationsMuted = newStatus;
-            document.getElementById('notificationsStatus').textContent = newStatus ? 'Açık' : 'Kapalı';
-            document.getElementById('notificationsBtn').classList.toggle('active', !newStatus);
-            showToast(newStatus ? 'Bildirimler açıldı' : 'Bildirimler kapatıldı');
+            try {
+                const newStatus = !currentUser.notificationsMuted;
+                await saveUserData({ notificationsMuted: newStatus });
+                currentUser.notificationsMuted = newStatus;
+                document.getElementById('notificationsStatus').textContent = newStatus ? 'Açık' : 'Kapalı';
+                document.getElementById('notificationsBtn').classList.toggle('active', !newStatus);
+                showToast(newStatus ? 'Bildirimler açıldı' : 'Bildirimler kapatıldı');
+            } catch (error) {
+                console.error("Bildirim hatası:", error);
+                showToast("İşlem başarısız!");
+            }
         };
 
         window.showColorPicker = function() {
@@ -1095,33 +1165,42 @@
 
         window.saveColor = async function() {
             if (!currentUser) return;
-            const colorName = getColorName(selectedColor);
-            await updateDoc(doc(db, "users", currentUser.uid), {
-                color: selectedColor,
-                colorName: colorName
-            });
-            currentUser.color = selectedColor;
-            currentUser.colorName = colorName;
-            document.getElementById('colorPreview').style.background = selectedColor;
-            document.getElementById('userAvatar').style.background = selectedColor;
-            // Tema rengini uygula - tüm uygulama değişir!
-            applyThemeColor(selectedColor);
-            closeColorPicker();
-            showToast('Renk güncellendi');
+            try {
+                const colorName = getColorName(selectedColor);
+                await saveUserData({
+                    color: selectedColor,
+                    colorName: colorName
+                });
+                currentUser.color = selectedColor;
+                currentUser.colorName = colorName;
+                document.getElementById('colorPreview').style.background = selectedColor;
+                document.getElementById('userAvatar').style.background = selectedColor;
+                applyThemeColor(selectedColor);
+                closeColorPicker();
+                showToast('Renk güncellendi');
+            } catch (error) {
+                console.error("Renk kaydetme hatası:", error);
+                showToast("Renk kaydedilemedi!");
+            }
         };
 
         window.createPersonalList = async function() {
-            currentListType = 'personal';
-            currentRoomId = null;
-            await updateDoc(doc(db, "users", currentUser.uid), {
-                currentListType: 'personal',
-                currentRoomId: null
-            });
-            showScreen('mainList');
-            document.getElementById('headerTitle').innerHTML = 'Listem <span class="list-type-badge personal">Kişisel</span>';
-            document.getElementById('roomCodeBtn').style.display = 'none';
-            document.getElementById('fab').style.display = 'flex';
-            startListeningToItems();
+            try {
+                currentListType = 'personal';
+                currentRoomId = null;
+                await saveUserData({
+                    currentListType: 'personal',
+                    currentRoomId: null
+                });
+                showScreen('mainList');
+                document.getElementById('headerTitle').innerHTML = 'Listem <span class="list-type-badge personal">Kişisel</span>';
+                document.getElementById('roomCodeBtn').style.display = 'none';
+                document.getElementById('fab').style.display = 'flex';
+                startListeningToItems();
+            } catch (error) {
+                console.error("Kişisel liste hatası:", error);
+                showToast("Liste oluşturulamadı!");
+            }
         };
 
         window.showCreateSharedList = function() {
@@ -1130,58 +1209,68 @@
         };
 
         window.createSharedRoom = async function() {
-            const roomId = generateRoomCode(8);
-            const colorName = getColorName(currentUser.color || '#FFC107');
-            
-            await setDoc(doc(db, "rooms", roomId), {
-                createdAt: serverTimestamp(),
-                createdBy: currentUser.uid
-            });
-            await setDoc(doc(db, "rooms", roomId, "members", currentUser.uid), {
-                email: currentUser.email,
-                displayName: currentUser.displayName,
-                color: currentUser.color || '#FFC107',
-                colorName: colorName,
-                joinedAt: serverTimestamp()
-            });
-            await updateDoc(doc(db, "users", currentUser.uid), {
-                currentListType: 'shared',
-                currentRoomId: roomId
-            });
-            currentListType = 'shared';
-            currentRoomId = roomId;
-            document.getElementById('roomCodeDisplay').textContent = roomId;
-            document.getElementById('createRoomSection').style.display = 'none';
-            document.getElementById('roomCreatedSection').style.display = 'block';
+            try {
+                const roomId = generateRoomCode(8);
+                const colorName = getColorName(currentUser.color || '#FFC107');
+                
+                await setDoc(doc(db, "rooms", roomId), {
+                    createdAt: serverTimestamp(),
+                    createdBy: currentUser.uid
+                });
+                await setDoc(doc(db, "rooms", roomId, "members", currentUser.uid), {
+                    email: currentUser.email,
+                    displayName: currentUser.displayName,
+                    color: currentUser.color || '#FFC107',
+                    colorName: colorName,
+                    joinedAt: serverTimestamp()
+                });
+                await saveUserData({
+                    currentListType: 'shared',
+                    currentRoomId: roomId
+                });
+                currentListType = 'shared';
+                currentRoomId = roomId;
+                document.getElementById('roomCodeDisplay').textContent = roomId;
+                document.getElementById('createRoomSection').style.display = 'none';
+                document.getElementById('roomCreatedSection').style.display = 'block';
+            } catch (error) {
+                console.error("Oda oluşturma hatası:", error);
+                showToast("Oda oluşturulamadı!");
+            }
         };
 
         window.joinRoom = async function() {
-            const roomId = document.getElementById('roomCodeInput').value.toUpperCase();
-            if (!roomId || roomId.length < 6) {
-                showToast("En az 6 karakterli kod giriniz!");
-                return;
+            try {
+                const roomId = document.getElementById('roomCodeInput').value.toUpperCase().trim();
+                if (!roomId || roomId.length < 6) {
+                    showToast("En az 6 karakterli kod giriniz!");
+                    return;
+                }
+                const roomDoc = await getDoc(doc(db, "rooms", roomId));
+                if (!roomDoc.exists()) {
+                    showToast("Oda bulunamadı!");
+                    return;
+                }
+                const colorName = getColorName(currentUser.color || '#FFC107');
+                
+                await setDoc(doc(db, "rooms", roomId, "members", currentUser.uid), {
+                    email: currentUser.email,
+                    displayName: currentUser.displayName,
+                    color: currentUser.color || '#FFC107',
+                    colorName: colorName,
+                    joinedAt: serverTimestamp()
+                });
+                await saveUserData({
+                    currentListType: 'shared',
+                    currentRoomId: roomId
+                });
+                currentListType = 'shared';
+                currentRoomId = roomId;
+                enterRoom();
+            } catch (error) {
+                console.error("Odaya katılma hatası:", error);
+                showToast("Odaya katılamadı!");
             }
-            const roomDoc = await getDoc(doc(db, "rooms", roomId));
-            if (!roomDoc.exists()) {
-                showToast("Oda bulunamadı!");
-                return;
-            }
-            const colorName = getColorName(currentUser.color || '#FFC107');
-            
-            await setDoc(doc(db, "rooms", roomId, "members", currentUser.uid), {
-                email: currentUser.email,
-                displayName: currentUser.displayName,
-                color: currentUser.color || '#FFC107',
-                colorName: colorName,
-                joinedAt: serverTimestamp()
-            });
-            await updateDoc(doc(db, "users", currentUser.uid), {
-                currentListType: 'shared',
-                currentRoomId: roomId
-            });
-            currentListType = 'shared';
-            currentRoomId = roomId;
-            enterRoom();
         };
 
         window.enterRoom = function() {
@@ -1203,15 +1292,29 @@
         };
 
         window.deleteAccount = async function() {
-            if (!confirm("Hesabınızı silmek istediğinize emin misiniz? Bu işlem geri alınamaz!")) return;
+            if (!currentUser) return;
+            if (!confirm("Hesabınızı silmek istediğinize emin misiniz?")) return;
             if (!confirm("Tüm listeleriniz ve verileriniz silinecek. Devam etmek istiyor musunuz?")) return;
             
             try {
+                showToast("Hesap siliniyor...");
+                
                 if (currentRoomId) {
                     await deleteDoc(doc(db, "rooms", currentRoomId, "members", currentUser.uid));
                 }
+                
+                const personalItems = await getDocs(collection(db, "personalLists", currentUser.uid, "items"));
+                const deletePersonalPromises = personalItems.docs.map(d => deleteDoc(d.ref));
+                await Promise.all(deletePersonalPromises);
+                
                 await deleteDoc(doc(db, "users", currentUser.uid));
-                await currentUser.delete();
+                
+                try {
+                    await currentUser.delete();
+                } catch (authError) {
+                    console.log("Auth silme yapılamadı (Google kullanıcıları için normal):", authError.message);
+                }
+                
                 showToast("Hesap silindi");
                 await signOut(auth);
                 showScreen('loginScreen');
@@ -1256,6 +1359,8 @@
             
             unsubscribeItems = onSnapshot(q, (snapshot) => {
                 renderList(snapshot.docs);
+            }, (error) => {
+                console.error("Dinleme hatası:", error);
             });
         }
 
@@ -1305,36 +1410,47 @@
         }
 
         window.toggleBought = async function(itemId, value) {
-            let itemRef;
-            if (currentListType === 'personal') {
-                itemRef = doc(db, "personalLists", currentUser.uid, "items", itemId);
-            } else {
-                itemRef = doc(db, "rooms", currentRoomId, "items", itemId);
-            }
-            
-            await updateDoc(itemRef, {
-                alindi: value,
-                alan: value ? currentUser.displayName : null,
-                lastModified: serverTimestamp()
-            });
-            if (value && !currentUser.notificationsMuted) {
-                showToast(`${currentUser.displayName} ürünü aldı! ✅`);
-                playNotificationSound();
+            try {
+                let itemRef;
+                if (currentListType === 'personal') {
+                    itemRef = doc(db, "personalLists", currentUser.uid, "items", itemId);
+                } else {
+                    itemRef = doc(db, "rooms", currentRoomId, "items", itemId);
+                }
+                
+                await setDoc(itemRef, {
+                    alindi: value,
+                    alan: value ? currentUser.displayName : null,
+                    lastModified: serverTimestamp()
+                }, { merge: true });
+                
+                if (value && !currentUser.notificationsMuted) {
+                    showToast(`${currentUser.displayName} ürünü aldı! ✅`);
+                    playNotificationSound();
+                }
+            } catch (error) {
+                console.error("Güncelleme hatası:", error);
+                showToast("İşlem başarısız!");
             }
         };
 
         window.deleteItem = async function(itemId) {
             if (!confirm("Bu ürünü silmek istediğinize emin misiniz?")) return;
             
-            let itemRef;
-            if (currentListType === 'personal') {
-                itemRef = doc(db, "personalLists", currentUser.uid, "items", itemId);
-            } else {
-                itemRef = doc(db, "rooms", currentRoomId, "items", itemId);
+            try {
+                let itemRef;
+                if (currentListType === 'personal') {
+                    itemRef = doc(db, "personalLists", currentUser.uid, "items", itemId);
+                } else {
+                    itemRef = doc(db, "rooms", currentRoomId, "items", itemId);
+                }
+                
+                await deleteDoc(itemRef);
+                showToast("Ürün silindi.");
+            } catch (error) {
+                console.error("Silme hatası:", error);
+                showToast("Silinemedi!");
             }
-            
-            await deleteDoc(itemRef);
-            showToast("Ürün silindi.");
         };
 
         window.addProduct = async function() {
@@ -1346,45 +1462,50 @@
                 return;
             }
 
-            const urun = products[katIdx].urunler[prodIdx];
-            const itemData = {
-                ad: urun.ad,
-                emoji: urun.emoji,
-                miktar: selectedQuantity,
-                birim: selectedUnit,
-                not: document.getElementById('noteInput').value,
-                acil: document.getElementById('urgentCheck').checked,
-                alindi: false,
-                ekleyen: currentListType === 'shared' ? currentUser.displayName : null,
-                color: currentUser.color || '#FFC107',
-                colorName: currentUser.colorName || 'yellow',
-                createdAt: serverTimestamp(),
-                lastModified: serverTimestamp()
-            };
+            try {
+                const urun = products[katIdx].urunler[prodIdx];
+                const itemData = {
+                    ad: urun.ad,
+                    emoji: urun.emoji,
+                    miktar: selectedQuantity,
+                    birim: selectedUnit,
+                    not: document.getElementById('noteInput').value,
+                    acil: document.getElementById('urgentCheck').checked,
+                    alindi: false,
+                    ekleyen: currentListType === 'shared' ? currentUser.displayName : null,
+                    color: currentUser.color || '#FFC107',
+                    colorName: currentUser.colorName || 'yellow',
+                    createdAt: serverTimestamp(),
+                    lastModified: serverTimestamp()
+                };
 
-            if (currentListType === 'personal') {
-                await addDoc(collection(db, "personalLists", currentUser.uid, "items"), itemData);
-            } else {
-                await addDoc(collection(db, "rooms", currentRoomId, "items"), itemData);
+                if (currentListType === 'personal') {
+                    await addDoc(collection(db, "personalLists", currentUser.uid, "items"), itemData);
+                } else {
+                    await addDoc(collection(db, "rooms", currentRoomId, "items"), itemData);
+                }
+
+                if (!currentUser.notificationsMuted) {
+                    showToast("Ürün eklendi! ");
+                    playNotificationSound();
+                }
+
+                document.getElementById('categorySelect').value = '';
+                document.getElementById('productSelect').innerHTML = '<option value="">Önce kategori seçiniz...</option>';
+                document.getElementById('productDetails').style.display = 'none';
+                document.getElementById('noteInput').value = '';
+                document.getElementById('urgentCheck').checked = false;
+                selectedQuantity = 1;
+                selectedUnit = 'Adet';
+                document.getElementById('quantityDisplay').textContent = '1';
+                document.querySelectorAll('.unit-btn').forEach(b => b.classList.remove('active'));
+                document.querySelector('.unit-btn[data-unit="Adet"]').classList.add('active');
+
+                goBack();
+            } catch (error) {
+                console.error("Ekleme hatası:", error);
+                showToast("Ürün eklenemedi!");
             }
-
-            if (!currentUser.notificationsMuted) {
-                showToast("Ürün eklendi! ");
-                playNotificationSound();
-            }
-
-            document.getElementById('categorySelect').value = '';
-            document.getElementById('productSelect').innerHTML = '<option value="">Önce kategori seçiniz...</option>';
-            document.getElementById('productDetails').style.display = 'none';
-            document.getElementById('noteInput').value = '';
-            document.getElementById('urgentCheck').checked = false;
-            selectedQuantity = 1;
-            selectedUnit = 'Adet';
-            document.getElementById('quantityDisplay').textContent = '1';
-            document.querySelectorAll('.unit-btn').forEach(b => b.classList.remove('active'));
-            document.querySelector('.unit-btn[data-unit="Adet"]').classList.add('active');
-
-            goBack();
         };
 
         function initCategorySelect() {
