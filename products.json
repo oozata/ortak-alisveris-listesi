@@ -1,0 +1,67 @@
+{
+  "kategoriler": [
+    {
+      "ad": "Manav",
+      "ikon": "🍎",
+      "urunler": [
+        {"ad": "Domates", "emoji": "🍅"},
+        {"ad": "Salatalık", "emoji": "🥒"},
+        {"ad": "Patates", "emoji": "🥔"},
+        {"ad": "Soğan", "emoji": ""},
+        {"ad": "Havuç", "emoji": "🥕"},
+        {"ad": "Muz", "emoji": "🍌"},
+        {"ad": "Elma", "emoji": "🍎"},
+        {"ad": "Portakal", "emoji": "🍊"},
+        {"ad": "Limon", "emoji": "🍋"},
+        {"ad": "Biber", "emoji": "🌶️"}
+      ]
+    },
+    {
+      "ad": "Süt & Kahvaltı",
+      "ikon": "🧀",
+      "urunler": [
+        {"ad": "Süt", "emoji": "🥛"},
+        {"ad": "Peynir", "emoji": ""},
+        {"ad": "Yumurta", "emoji": "🥚"},
+        {"ad": "Yoğurt", "emoji": ""},
+        {"ad": "Tereyağı", "emoji": "🧈"},
+        {"ad": "Zeytin", "emoji": ""},
+        {"ad": "Bal", "emoji": "🍯"},
+        {"ad": "Reçel", "emoji": "🍓"}
+      ]
+    },
+    {
+      "ad": "Et & Tavuk",
+      "ikon": "🥩",
+      "urunler": [
+        {"ad": "Kıyma", "emoji": "🥩"},
+        {"ad": "Tavuk", "emoji": ""},
+        {"ad": "Sucuk", "emoji": "🥓"},
+        {"ad": "Sosis", "emoji": "🌭"},
+        {"ad": "Köfte", "emoji": "🍖"}
+      ]
+    },
+    {
+      "ad": "Temizlik",
+      "ikon": "🧼",
+      "urunler": [
+        {"ad": "Deterjan", "emoji": "🧺"},
+        {"ad": "Tuvalet Kağıdı", "emoji": "🧻"},
+        {"ad": "Sabun", "emoji": ""},
+        {"ad": "Şampuan", "emoji": "🧴"},
+        {"ad": "Bulaşık Deterjanı", "emoji": "🧽"}
+      ]
+    },
+    {
+      "ad": "İçecekler",
+      "ikon": "🥤",
+      "urunler": [
+        {"ad": "Su", "emoji": "💧"},
+        {"ad": "Çay", "emoji": "🍵"},
+        {"ad": "Kahve", "emoji": "☕"},
+        {"ad": "Meyve Suyu", "emoji": "🧃"},
+        {"ad": "Kola", "emoji": "🥤"}
+      ]
+    }
+  ]
+}
