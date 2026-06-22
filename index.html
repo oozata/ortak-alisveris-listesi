@@ -73,7 +73,6 @@
             text-align: center;
         }
 
-        /* Modern Logo Styles */
         .logo-container {
             margin-bottom: 40px;
             animation: fadeInDown 0.6s ease-out;
@@ -142,14 +141,8 @@
         }
 
         @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .dashboard-screen {
@@ -579,36 +572,204 @@
             transform: scale(1.05);
         }
 
+        /* Ürün Ekleme - Yeni Arama Tasarımı */
         .add-form {
-            padding: 30px 20px;
+            padding: 20px;
         }
 
-        .form-group {
+        .search-container {
+            position: relative;
             margin-bottom: 20px;
         }
 
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
+        .search-input {
+            width: 100%;
+            padding: 15px 20px 15px 50px;
+            border: 2px solid #ddd;
+            border-radius: 15px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 2px 8px rgba(255, 193, 7, 0.2);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+            color: #999;
+        }
+
+        .custom-product-btn {
+            width: 100%;
+            padding: 15px;
+            background: #f5f5f5;
+            border: 2px dashed #ccc;
+            border-radius: 15px;
+            font-size: 16px;
             font-weight: bold;
+            color: #666;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: all 0.2s;
+        }
+
+        .custom-product-btn:hover {
+            background: #fffde7;
+            border-color: var(--primary-color);
             color: #333;
         }
 
-        .form-group select,
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: 10px;
-            font-size: 16px;
+        .section-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            margin-top: 10px;
         }
 
-        .form-group select:focus,
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
+        .category-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .category-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+        }
+
+        .category-item:hover {
+            background: #fffde7;
             border-color: var(--primary-color);
+        }
+
+        .category-item .cat-emoji {
+            font-size: 24px;
+        }
+
+        .category-item .cat-name {
+            flex: 1;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .category-item .cat-count {
+            font-size: 12px;
+            color: #999;
+            background: #e0e0e0;
+            padding: 3px 8px;
+            border-radius: 10px;
+        }
+
+        .search-results {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .search-result-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .search-result-item:hover {
+            border-color: var(--primary-color);
+            background: #fffde7;
+            transform: translateX(4px);
+        }
+
+        .search-result-item .res-emoji {
+            font-size: 28px;
+        }
+
+        .search-result-item .res-name {
+            flex: 1;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .search-result-item .res-category {
+            font-size: 11px;
+            color: #999;
+            background: #f5f5f5;
+            padding: 3px 8px;
+            border-radius: 10px;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 30px;
+            color: #999;
+        }
+
+        /* Ürün Detay Formu */
+        .product-detail-form {
+            display: none;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        .product-detail-form.active {
+            display: block;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .selected-product-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .selected-product-header .sp-emoji {
+            font-size: 36px;
+        }
+
+        .selected-product-header .sp-name {
+            flex: 1;
+            font-weight: bold;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .selected-product-header .sp-change {
+            font-size: 13px;
+            color: var(--primary-color);
+            cursor: pointer;
+            font-weight: bold;
         }
 
         .quantity-control {
@@ -640,6 +801,30 @@
             font-weight: bold;
             min-width: 80px;
             text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
         }
 
         .unit-selector {
@@ -705,6 +890,23 @@
             background: var(--primary-hover);
         }
 
+        .cancel-selection-btn {
+            width: 100%;
+            padding: 14px;
+            background: #f5f5f5;
+            color: #666;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .cancel-selection-btn:hover {
+            background: #e0e0e0;
+        }
+
+        /* Toast */
         .toast {
             position: fixed;
             top: 20px;
@@ -772,29 +974,19 @@
         <!-- Login Screen -->
         <div id="loginScreen" class="screen active">
             <div class="login-screen">
-                <!-- Modern Logo -->
                 <div class="logo-container">
                     <div class="logo-wrapper">
                         <svg class="logo-icon" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Shopping List Background -->
                             <rect x="20" y="15" width="80" height="95" rx="8" fill="white" opacity="0.95"/>
-                            
-                            <!-- List Lines -->
                             <line x1="35" y1="35" x2="85" y2="35" stroke="#667eea" stroke-width="3" stroke-linecap="round"/>
                             <line x1="35" y1="50" x2="85" y2="50" stroke="#667eea" stroke-width="3" stroke-linecap="round"/>
                             <line x1="35" y1="65" x2="70" y2="65" stroke="#667eea" stroke-width="3" stroke-linecap="round"/>
-                            
-                            <!-- Checkmarks -->
                             <path d="M35 85 L42 92 L52 80" stroke="#4CAF50" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
                             <path d="M58 85 L65 92 L75 80" stroke="#4CAF50" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-                            
-                            <!-- Shopping Cart Overlay -->
                             <path d="M75 25 L85 25 L82 40 L70 40" stroke="#764ba2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
                             <rect x="50" y="40" width="35" height="25" rx="3" stroke="#764ba2" stroke-width="3" fill="none"/>
                             <circle cx="58" cy="72" r="4" fill="#764ba2"/>
                             <circle cx="77" cy="72" r="4" fill="#764ba2"/>
-                            
-                            <!-- Couple Icon (Two People) -->
                             <circle cx="42" cy="30" r="6" fill="#667eea"/>
                             <path d="M42 38 L42 44" stroke="#667eea" stroke-width="2.5" stroke-linecap="round"/>
                             <circle cx="62" cy="30" r="6" fill="#764ba2"/>
@@ -802,10 +994,8 @@
                         </svg>
                     </div>
                 </div>
-                
                 <h1>CoupleList</h1>
                 <p class="subtitle">Ortak Liste, Ortak Hayat</p>
-                
                 <button class="google-signin-btn" onclick="loginWithGoogle()">
                     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -861,7 +1051,7 @@
 
             <div class="settings-section">
                 <button class="setting-btn danger" onclick="deleteAccount()">
-                    <span class="setting-icon">🗑️</span>
+                    <span class="setting-icon">️</span>
                     <span style="flex: 1; text-align: left;">Hesabımı Sil</span>
                 </button>
                 <button class="setting-btn" onclick="logout()" style="margin-top: 10px;">
@@ -913,7 +1103,7 @@
             </div>
         </div>
 
-        <!-- Add Product Screen -->
+        <!-- Add Product Screen - YENİ ARAMA TASARIMI -->
         <div id="addProduct" class="screen">
             <div class="header">
                 <button onclick="goBack()">← Geri</button>
@@ -921,21 +1111,38 @@
                 <span></span>
             </div>
             <div class="add-form">
-                <div class="form-group">
-                    <label>Kategori</label>
-                    <select id="categorySelect" onchange="updateProducts()">
-                        <option value="">Seçiniz...</option>
-                    </select>
+                <!-- Arama Bölümü -->
+                <div id="searchSection">
+                    <div class="search-container">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" class="search-input" id="searchInput" placeholder="Ürün ara... (örn: süt, ekmek, şampuan)" oninput="handleSearch()">
+                    </div>
+
+                    <button class="custom-product-btn" onclick="showCustomProductForm()">
+                        ️ Katalogda yok mu? Özel ürün ekle
+                    </button>
+
+                    <!-- Kategori Listesi (arama yokken görünür) -->
+                    <div id="categoryListSection">
+                        <div class="section-title">Kategoriler</div>
+                        <div class="category-list" id="categoryList"></div>
+                    </div>
+
+                    <!-- Arama Sonuçları -->
+                    <div id="searchResultsSection" style="display: none;">
+                        <div class="section-title">Sonuçlar</div>
+                        <div class="search-results" id="searchResults"></div>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label>Ürün</label>
-                    <select id="productSelect">
-                        <option value="">Önce kategori seçiniz...</option>
-                    </select>
-                </div>
+                <!-- Ürün Detay Formu (ürün seçilince görünür) -->
+                <div id="productDetailForm" class="product-detail-form">
+                    <div class="selected-product-header">
+                        <div class="sp-emoji" id="selectedEmoji"></div>
+                        <div class="sp-name" id="selectedName">Ürün</div>
+                        <div class="sp-change" onclick="backToSearch()">Değiştir</div>
+                    </div>
 
-                <div id="productDetails" style="display: none;">
                     <div class="quantity-control">
                         <button class="quantity-btn" onclick="changeQuantity(-0.5)">−</button>
                         <div class="quantity-display" id="quantityDisplay">1</div>
@@ -954,7 +1161,7 @@
 
                     <div class="form-group">
                         <label>Not (Marka vb.)</label>
-                    <textarea id="noteInput" rows="2" placeholder="Örn: Sütaş, İçim..."></textarea>
+                        <textarea id="noteInput" rows="2" placeholder="Örn: Sütaş, İçim..."></textarea>
                     </div>
 
                     <div class="form-group">
@@ -965,6 +1172,53 @@
                     </div>
 
                     <button class="submit-btn" onclick="addProduct()">LİSTEYE EKLE</button>
+                    <button class="cancel-selection-btn" onclick="backToSearch()">İptal</button>
+                </div>
+
+                <!-- Özel Ürün Formu -->
+                <div id="customProductForm" class="product-detail-form">
+                    <div class="selected-product-header">
+                        <div class="sp-emoji">✏️</div>
+                        <div class="sp-name">Özel Ürün</div>
+                        <div class="sp-change" onclick="backToSearch()">İptal</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Ürün Adı</label>
+                        <textarea id="customProductName" rows="2" placeholder="Ürün adını yazın..." style="font-size: 18px; font-weight: bold;"></textarea>
+                    </div>
+
+                    <div class="quantity-control">
+                        <button class="quantity-btn" onclick="changeQuantity(-0.5)">−</button>
+                        <div class="quantity-display" id="quantityDisplay2">1</div>
+                        <button class="quantity-btn" onclick="changeQuantity(0.5)">+</button>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Birim</label>
+                        <div class="unit-selector">
+                            <button class="unit-btn active" data-unit="Adet" onclick="selectUnit(this)">Adet</button>
+                            <button class="unit-btn" data-unit="Kg" onclick="selectUnit(this)">Kg</button>
+                            <button class="unit-btn" data-unit="Litre" onclick="selectUnit(this)">Litre</button>
+                            <button class="unit-btn" data-unit="Koli" onclick="selectUnit(this)">Koli</button>
+                            <button class="unit-btn" data-unit="Paket" onclick="selectUnit(this)">Paket</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Not (Marka vb.)</label>
+                        <textarea id="noteInput2" rows="2" placeholder="Örn: Sütaş, İçim..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="urgent-toggle">
+                            <input type="checkbox" id="urgentCheck2">
+                            <span> Acil İhtiyaç</span>
+                        </label>
+                    </div>
+
+                    <button class="submit-btn" onclick="addCustomProduct()">LİSTEYE EKLE</button>
+                    <button class="cancel-selection-btn" onclick="backToSearch()">İptal</button>
                 </div>
             </div>
         </div>
@@ -992,7 +1246,7 @@
     </div>
 
     <!-- FAB -->
-    <button class="fab" id="fab" style="display: none;" onclick="showScreen('addProduct')">
+    <button class="fab" id="fab" style="display: none;" onclick="showAddProduct()">
         <span>➕</span>
         <span>Ürün Ekle</span>
     </button>
@@ -1027,6 +1281,8 @@
         let selectedUnit = 'Adet';
         let unsubscribeItems = null;
         let selectedColor = '#FFC107';
+        let selectedProduct = null; // Seçili ürün
+        let isCustomProduct = false; // Özel ürün mü?
 
         const PRODUCTS_URL = "https://raw.githubusercontent.com/oozata/ortak-alisveris-listesi/refs/heads/main/products.json";
 
@@ -1050,11 +1306,144 @@
                 const response = await fetch(PRODUCTS_URL);
                 const data = await response.json();
                 products = data.kategoriler;
-                initCategorySelect();
+                renderCategories();
             } catch (error) {
                 console.error("Ürün kataloğu yüklenemedi:", error);
                 showToast("Ürün kataloğu yüklenemedi!");
             }
+        }
+
+        // Kategorileri render et
+        function renderCategories() {
+            const container = document.getElementById('categoryList');
+            container.innerHTML = products.map((kat, idx) => `
+                <div class="category-item" onclick="selectCategory(${idx})">
+                    <div class="cat-emoji">${kat.ikon}</div>
+                    <div class="cat-name">${kat.ad}</div>
+                    <div class="cat-count">${kat.urunler.length}</div>
+                </div>
+            `).join('');
+        }
+
+        // Kategori seçilince o kategorinin ürünlerini göster
+        window.selectCategory = function(idx) {
+            const kategori = products[idx];
+            const results = kategori.urunler.map(u => ({
+                ...u,
+                kategoriAd: kategori.ad,
+                kategoriIkon: kategori.ikon
+            }));
+            renderSearchResults(results, kategori.ad);
+        };
+
+        // Arama yap
+        window.handleSearch = function() {
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            const categoryListSection = document.getElementById('categoryListSection');
+            const searchResultsSection = document.getElementById('searchResultsSection');
+
+            if (query.length === 0) {
+                categoryListSection.style.display = 'block';
+                searchResultsSection.style.display = 'none';
+                return;
+            }
+
+            categoryListSection.style.display = 'none';
+            searchResultsSection.style.display = 'block';
+
+            // Tüm ürünlerde ara
+            const results = [];
+            products.forEach(kat => {
+                kat.urunler.forEach(u => {
+                    if (u.ad.toLowerCase().includes(query)) {
+                        results.push({
+                            ...u,
+                            kategoriAd: kat.ad,
+                            kategoriIkon: kat.ikon
+                        });
+                    }
+                });
+            });
+
+            renderSearchResults(results, null);
+        };
+
+        // Arama sonuçlarını render et
+        function renderSearchResults(results, title) {
+            const container = document.getElementById('searchResults');
+            const titleEl = document.querySelector('#searchResultsSection .section-title');
+            
+            if (title) {
+                titleEl.textContent = title;
+            } else {
+                titleEl.textContent = 'Sonuçlar';
+            }
+
+            if (results.length === 0) {
+                container.innerHTML = '<div class="no-results">Sonuç bulunamadı 😔<br><small>Katalogda yoksa "Özel ürün ekle" butonunu kullan</small></div>';
+                return;
+            }
+
+            container.innerHTML = results.map(u => `
+                <div class="search-result-item" onclick="selectProduct('${u.ad}', '${u.emoji}')">
+                    <div class="res-emoji">${u.emoji}</div>
+                    <div class="res-name">${u.ad}</div>
+                    <div class="res-category">${u.kategoriIkon} ${u.kategoriAd}</div>
+                </div>
+            `).join('');
+        }
+
+        // Ürün seç
+        window.selectProduct = function(ad, emoji) {
+            selectedProduct = { ad, emoji };
+            isCustomProduct = false;
+            showProductDetailForm();
+        };
+
+        // Özel ürün formunu göster
+        window.showCustomProductForm = function() {
+            isCustomProduct = true;
+            document.getElementById('searchSection').style.display = 'none';
+            document.getElementById('productDetailForm').classList.remove('active');
+            document.getElementById('customProductForm').classList.add('active');
+            document.getElementById('customProductName').value = '';
+            document.getElementById('customProductName').focus();
+        };
+
+        // Ürün detay formunu göster
+        function showProductDetailForm() {
+            document.getElementById('searchSection').style.display = 'none';
+            document.getElementById('customProductForm').classList.remove('active');
+            document.getElementById('productDetailForm').classList.add('active');
+            document.getElementById('selectedEmoji').textContent = selectedProduct.emoji;
+            document.getElementById('selectedName').textContent = selectedProduct.ad;
+        }
+
+        // Aramaya geri dön
+        window.backToSearch = function() {
+            document.getElementById('searchSection').style.display = 'block';
+            document.getElementById('productDetailForm').classList.remove('active');
+            document.getElementById('customProductForm').classList.remove('active');
+            document.getElementById('searchInput').value = '';
+            document.getElementById('categoryListSection').style.display = 'block';
+            document.getElementById('searchResultsSection').style.display = 'none';
+            selectedProduct = null;
+            isCustomProduct = false;
+            resetForm();
+        };
+
+        // Formu sıfırla
+        function resetForm() {
+            selectedQuantity = 1;
+            selectedUnit = 'Adet';
+            document.getElementById('quantityDisplay').textContent = '1';
+            document.getElementById('quantityDisplay2').textContent = '1';
+            document.getElementById('noteInput').value = '';
+            document.getElementById('noteInput2').value = '';
+            document.getElementById('urgentCheck').checked = false;
+            document.getElementById('urgentCheck2').checked = false;
+            document.querySelectorAll('.unit-btn').forEach(b => b.classList.remove('active'));
+            document.querySelector('.unit-btn[data-unit="Adet"]').classList.add('active');
         }
 
         async function saveUserData(data) {
@@ -1167,10 +1556,7 @@
             if (!currentUser) return;
             try {
                 const colorName = getColorName(selectedColor);
-                await saveUserData({
-                    color: selectedColor,
-                    colorName: colorName
-                });
+                await saveUserData({ color: selectedColor, colorName: colorName });
                 currentUser.color = selectedColor;
                 currentUser.colorName = colorName;
                 document.getElementById('colorPreview').style.background = selectedColor;
@@ -1188,10 +1574,7 @@
             try {
                 currentListType = 'personal';
                 currentRoomId = null;
-                await saveUserData({
-                    currentListType: 'personal',
-                    currentRoomId: null
-                });
+                await saveUserData({ currentListType: 'personal', currentRoomId: null });
                 showScreen('mainList');
                 document.getElementById('headerTitle').innerHTML = 'Listem <span class="list-type-badge personal">Kişisel</span>';
                 document.getElementById('roomCodeBtn').style.display = 'none';
@@ -1224,10 +1607,7 @@
                     colorName: colorName,
                     joinedAt: serverTimestamp()
                 });
-                await saveUserData({
-                    currentListType: 'shared',
-                    currentRoomId: roomId
-                });
+                await saveUserData({ currentListType: 'shared', currentRoomId: roomId });
                 currentListType = 'shared';
                 currentRoomId = roomId;
                 document.getElementById('roomCodeDisplay').textContent = roomId;
@@ -1260,10 +1640,7 @@
                     colorName: colorName,
                     joinedAt: serverTimestamp()
                 });
-                await saveUserData({
-                    currentListType: 'shared',
-                    currentRoomId: roomId
-                });
+                await saveUserData({ currentListType: 'shared', currentRoomId: roomId });
                 currentListType = 'shared';
                 currentRoomId = roomId;
                 enterRoom();
@@ -1298,23 +1675,18 @@
             
             try {
                 showToast("Hesap siliniyor...");
-                
                 if (currentRoomId) {
                     await deleteDoc(doc(db, "rooms", currentRoomId, "members", currentUser.uid));
                 }
-                
                 const personalItems = await getDocs(collection(db, "personalLists", currentUser.uid, "items"));
                 const deletePersonalPromises = personalItems.docs.map(d => deleteDoc(d.ref));
                 await Promise.all(deletePersonalPromises);
-                
                 await deleteDoc(doc(db, "users", currentUser.uid));
-                
                 try {
                     await currentUser.delete();
                 } catch (authError) {
                     console.log("Auth silme yapılamadı (Google kullanıcıları için normal):", authError.message);
                 }
-                
                 showToast("Hesap silindi");
                 await signOut(auth);
                 showScreen('loginScreen');
@@ -1335,28 +1707,21 @@
 
         function getColorName(colorCode) {
             const colorMap = {
-                '#FFC107': 'yellow',
-                '#2196F3': 'blue',
-                '#F44336': 'red',
-                '#4CAF50': 'green',
-                '#FF9800': 'orange',
-                '#9C27B0': 'purple',
-                '#E91E63': 'pink',
-                '#00BCD4': 'cyan'
+                '#FFC107': 'yellow', '#2196F3': 'blue', '#F44336': 'red',
+                '#4CAF50': 'green', '#FF9800': 'orange', '#9C27B0': 'purple',
+                '#E91E63': 'pink', '#00BCD4': 'cyan'
             };
             return colorMap[colorCode] || 'yellow';
         }
 
         function startListeningToItems() {
             if (unsubscribeItems) unsubscribeItems();
-            
             let q;
             if (currentListType === 'personal') {
                 q = query(collection(db, "personalLists", currentUser.uid, "items"), orderBy("createdAt", "desc"));
             } else {
                 q = query(collection(db, "rooms", currentRoomId, "items"), orderBy("createdAt", "desc"));
             }
-            
             unsubscribeItems = onSnapshot(q, (snapshot) => {
                 renderList(snapshot.docs);
             }, (error) => {
@@ -1367,12 +1732,11 @@
         function renderList(docs) {
             const container = document.getElementById('listContainer');
             if (docs.length === 0) {
-                container.innerHTML = '<div class="empty-state">Liste boş! 🛒</div>';
+                container.innerHTML = '<div class="empty-state">Liste boş! </div>';
                 return;
             }
 
             const items = docs.map(doc => ({ id: doc.id, ...doc.data() }));
-            
             items.sort((a, b) => {
                 if (a.alindi !== b.alindi) return a.alindi ? 1 : -1;
                 if (a.acil !== b.acil) return b.acil ? 1 : -1;
@@ -1417,13 +1781,11 @@
                 } else {
                     itemRef = doc(db, "rooms", currentRoomId, "items", itemId);
                 }
-                
                 await setDoc(itemRef, {
                     alindi: value,
                     alan: value ? currentUser.displayName : null,
                     lastModified: serverTimestamp()
                 }, { merge: true });
-                
                 if (value && !currentUser.notificationsMuted) {
                     showToast(`${currentUser.displayName} ürünü aldı! ✅`);
                     playNotificationSound();
@@ -1436,7 +1798,6 @@
 
         window.deleteItem = async function(itemId) {
             if (!confirm("Bu ürünü silmek istediğinize emin misiniz?")) return;
-            
             try {
                 let itemRef;
                 if (currentListType === 'personal') {
@@ -1444,7 +1805,6 @@
                 } else {
                     itemRef = doc(db, "rooms", currentRoomId, "items", itemId);
                 }
-                
                 await deleteDoc(itemRef);
                 showToast("Ürün silindi.");
             } catch (error) {
@@ -1453,20 +1813,17 @@
             }
         };
 
+        // Katalog ürünü ekle
         window.addProduct = async function() {
-            const katIdx = document.getElementById('categorySelect').value;
-            const prodIdx = document.getElementById('productSelect').value;
-
-            if (!katIdx || !prodIdx) {
-                showToast('Lütfen kategori ve ürün seçiniz!');
+            if (!selectedProduct) {
+                showToast('Lütfen bir ürün seçiniz!');
                 return;
             }
 
             try {
-                const urun = products[katIdx].urunler[prodIdx];
                 const itemData = {
-                    ad: urun.ad,
-                    emoji: urun.emoji,
+                    ad: selectedProduct.ad,
+                    emoji: selectedProduct.emoji,
                     miktar: selectedQuantity,
                     birim: selectedUnit,
                     not: document.getElementById('noteInput').value,
@@ -1486,60 +1843,71 @@
                 }
 
                 if (!currentUser.notificationsMuted) {
-                    showToast("Ürün eklendi! ");
+                    showToast("Ürün eklendi! 🛒");
                     playNotificationSound();
                 }
 
-                document.getElementById('categorySelect').value = '';
-                document.getElementById('productSelect').innerHTML = '<option value="">Önce kategori seçiniz...</option>';
-                document.getElementById('productDetails').style.display = 'none';
-                document.getElementById('noteInput').value = '';
-                document.getElementById('urgentCheck').checked = false;
-                selectedQuantity = 1;
-                selectedUnit = 'Adet';
-                document.getElementById('quantityDisplay').textContent = '1';
-                document.querySelectorAll('.unit-btn').forEach(b => b.classList.remove('active'));
-                document.querySelector('.unit-btn[data-unit="Adet"]').classList.add('active');
-
-                goBack();
+                backToSearch();
             } catch (error) {
                 console.error("Ekleme hatası:", error);
                 showToast("Ürün eklenemedi!");
             }
         };
 
-        function initCategorySelect() {
-            const select = document.getElementById('categorySelect');
-            select.innerHTML = '<option value="">Seçiniz...</option>';
-            products.forEach((kat, idx) => {
-                select.innerHTML += `<option value="${idx}">${kat.ikon} ${kat.ad}</option>`;
-            });
-        }
-
-        window.updateProducts = function() {
-            const katIdx = document.getElementById('categorySelect').value;
-            const prodSelect = document.getElementById('productSelect');
-            
-            if (katIdx === '') {
-                prodSelect.innerHTML = '<option value="">Önce kategori seçiniz...</option>';
-                document.getElementById('productDetails').style.display = 'none';
+        // Özel ürün ekle
+        window.addCustomProduct = async function() {
+            const ad = document.getElementById('customProductName').value.trim();
+            if (!ad) {
+                showToast('Lütfen ürün adını giriniz!');
                 return;
             }
 
-            const kategori = products[katIdx];
-            prodSelect.innerHTML = '<option value="">Seçiniz...</option>';
-            kategori.urunler.forEach((urun, idx) => {
-                prodSelect.innerHTML += `<option value="${idx}">${urun.emoji} ${urun.ad}</option>`;
-            });
+            try {
+                const itemData = {
+                    ad: ad,
+                    emoji: '🛍️',
+                    miktar: selectedQuantity,
+                    birim: selectedUnit,
+                    not: document.getElementById('noteInput2').value,
+                    acil: document.getElementById('urgentCheck2').checked,
+                    alindi: false,
+                    ekleyen: currentListType === 'shared' ? currentUser.displayName : null,
+                    color: currentUser.color || '#FFC107',
+                    colorName: currentUser.colorName || 'yellow',
+                    createdAt: serverTimestamp(),
+                    lastModified: serverTimestamp()
+                };
+
+                if (currentListType === 'personal') {
+                    await addDoc(collection(db, "personalLists", currentUser.uid, "items"), itemData);
+                } else {
+                    await addDoc(collection(db, "rooms", currentRoomId, "items"), itemData);
+                }
+
+                if (!currentUser.notificationsMuted) {
+                    showToast("Ürün eklendi! 🛒");
+                    playNotificationSound();
+                }
+
+                backToSearch();
+            } catch (error) {
+                console.error("Ekleme hatası:", error);
+                showToast("Ürün eklenemedi!");
+            }
         };
 
-        document.getElementById('productSelect').addEventListener('change', function() {
-            document.getElementById('productDetails').style.display = this.value ? 'block' : 'none';
-        });
+        // FAB tıklandığında ürün ekleme ekranını aç ve formu sıfırla
+        window.showAddProduct = function() {
+            showScreen('addProduct');
+            document.getElementById('fab').style.display = 'none';
+            resetForm();
+            backToSearch();
+        };
 
         window.changeQuantity = function(delta) {
             selectedQuantity = Math.max(0.5, selectedQuantity + delta);
             document.getElementById('quantityDisplay').textContent = selectedQuantity;
+            document.getElementById('quantityDisplay2').textContent = selectedQuantity;
         };
 
         window.selectUnit = function(btn) {
@@ -1556,6 +1924,7 @@
 
         window.goBack = function() {
             showScreen('mainList');
+            document.getElementById('fab').style.display = 'flex';
         };
 
         function showToast(message) {
