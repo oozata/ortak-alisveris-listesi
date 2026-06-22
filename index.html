@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ortak Alışveriş Listesi</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .header {
+            background: #FFC107;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header button {
+            background: rgba(255,255,255,0.3);
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .header button:hover {
+            background: rgba(255,255,255,0.5);
+        }
+
+        .screen {
+            display: none;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        /* Login Screen */
+        .login-screen {
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .login-screen .icon {
+            font-size: 100px;
+            margin-bottom: 40px;
+        }
+
+        .login-btn {
+            display: block;
+            width: 280px;
+            margin: 15px auto;
+            padding: 18px;
+            border: none;
+            border-radius: 25px;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .login-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .login-btn.google {
+            background: #4285F4;
+        }
+
+        /* Room Screen */
+        .room-screen {
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .room-code-display {
+            background: #f5f5f5;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            font-size: 36px;
+            font-weight: bold;
+            letter-spacing: 8px;
+            color: #333;
+        }
+
+        .room-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 24px;
+            text-align: center;
+            letter-spacing: 8px;
+            margin: 20px 0;
+        }
+
+        .room-input:focus {
+            outline: none;
+            border-color: #FFC107;
+        }
+
+        .room-btn {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background: #FFC107;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+
+        .room-btn:hover {
+            background: #FFB300;
+        }
+
+        .room-btn.secondary {
+            background: #9E9E9E;
+        }
+
+        .room-btn.secondary:hover {
+            background: #757575;
+        }
+
+        /* Liste */
+        .list-container {
+            padding: 20px;
+            min-height: 400px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+            font-size: 18px;
+        }
+
+        .item-card {
+            background: white;
+            border-radius: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .item-card.bought {
+            background: #f5f5f5;
+            opacity: 0.7;
+        }
+
+        .item-card.urgent {
+            border: 3px solid #f44336;
+        }
+
+        .item-content {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-left: 10px solid #FFC107;
+        }
+
+        .item-emoji {
+            font-size: 40px;
+            margin-right: 15px;
+        }
+
+        .item-info {
+            flex: 1;
+        }
+
+        .item-name {
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .item-card.bought .item-name {
+            text-decoration: line-through;
+            color: #999;
+        }
+
+        .item-meta {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .item-card.bought .item-meta {
+            color: #999;
+        }
+
+        .item-checkbox {
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            accent-color: #FFC107;
+        }
+
+        .delete-btn {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            background: #f44336;
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .delete-btn:hover {
+            background: #d32f2f;
+        }
+
+        /* FAB */
+        .fab {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #FFC107;
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .fab:hover {
+            background: #FFB300;
+            transform: scale(1.05);
+        }
+
+        /* Ürün Ekleme */
+        .add-form {
+            padding: 30px 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-group select,
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+
+        .form-group select:focus,
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #FFC107;
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .quantity-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            background: #FFC107;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .quantity-btn:hover {
+            background: #FFB300;
+        }
+
+        .quantity-display {
+            font-size: 32px;
+            font-weight: bold;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        .unit-selector {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .unit-btn {
+            flex: 1;
+            min-width: 80px;
+            padding: 12px;
+            border: 2px solid #ddd;
+            background: white;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .unit-btn.active {
+            background: #FFC107;
+            color: white;
+            border-color: #FFC107;
+        }
+
+        .urgent-toggle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px;
+            background: #ffebee;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .urgent-toggle input {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+        }
+
+        .urgent-toggle label {
+            color: #f44336;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 0;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: #FFC107;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            background: #FFB300;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.9);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            font-weight: bold;
+            z-index: 2000;
+            opacity: 0;
+            transition: opacity 0.3s;
+            max-width: 90%;
+            text-align: center;
+        }
+
+        .toast.show {
+            opacity: 1;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #FFC107;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Login Screen -->
+        <div id="loginScreen" class="screen active">
+            <div class="login-screen">
+                <div class="icon">🛒</div>
+                <h1 style="margin-bottom: 10px;">Ortak Alışveriş Listesi</h1>
+                <p style="color: #666; margin-bottom: 40px;">Eşinizle birlikte alışveriş yapın</p>
+                <button class="login-btn google" onclick="loginWithGoogle()">
+                    🔵 Google ile Giriş Yap
+                </button>
+            </div>
+        </div>
+
+        <!-- Room Screen -->
+        <div id="roomScreen" class="screen">
+            <div class="room-screen">
+                <h2 style="margin-bottom: 20px;">Oda Kodu</h2>
+                <p style="color: #666; margin-bottom: 20px;">Eşinizle aynı odaya katılın</p>
+                
+                <div id="createRoomSection">
+                    <button class="room-btn" onclick="createRoom()">Yeni Oda Oluştur</button>
+                    <p style="margin: 30px 0 10px; color: #999;">veya</p>
+                    <input type="text" class="room-input" id="roomCodeInput" placeholder="XXXXXX" maxlength="6" style="text-transform: uppercase;">
+                    <button class="room-btn secondary" onclick="joinRoom()">Odaya Katıl</button>
+                </div>
+
+                <div id="roomCreatedSection" style="display: none;">
+                    <p style="margin-bottom: 10px;">Oda kodunuz:</p>
+                    <div class="room-code-display" id="roomCodeDisplay"></div>
+                    <p style="color: #666; margin-bottom: 20px;">Bu kodu eşinizle paylaşın</p>
+                    <button class="room-btn" onclick="enterRoom()">Listeye Git →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main List Screen -->
+        <div id="mainList" class="screen">
+            <div class="header">
+                <button onclick="logout()">🚪 Çıkış</button>
+                <span id="headerTitle">Listemiz</span>
+                <button onclick="showRoomCode()">🔑 Kod</button>
+            </div>
+            <div class="list-container" id="listContainer">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>Yükleniyor...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Product Screen -->
+        <div id="addProduct" class="screen">
+            <div class="header">
+                <button onclick="goBack()">← Geri</button>
+                <span>Ürün Ekle</span>
+                <span></span>
+            </div>
+            <div class="add-form">
+                <div class="form-group">
+                    <label>Kategori</label>
+                    <select id="categorySelect" onchange="updateProducts()">
+                        <option value="">Seçiniz...</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Ürün</label>
+                    <select id="productSelect">
+                        <option value="">Önce kategori seçiniz...</option>
+                    </select>
+                </div>
+
+                <div id="productDetails" style="display: none;">
+                    <div class="quantity-control">
+                        <button class="quantity-btn" onclick="changeQuantity(-0.5)">−</button>
+                        <div class="quantity-display" id="quantityDisplay">1</div>
+                        <button class="quantity-btn" onclick="changeQuantity(0.5)">+</button>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Birim</label>
+                        <div class="unit-selector">
+                            <button class="unit-btn active" data-unit="Adet" onclick="selectUnit(this)">Adet</button>
+                            <button class="unit-btn" data-unit="Kg" onclick="selectUnit(this)">Kg</button>
+                            <button class="unit-btn" data-unit="Litre" onclick="selectUnit(this)">Litre</button>
+                            <button class="unit-btn" data-unit="Koli" onclick="selectUnit(this)">Koli</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Not (Marka vb.)</label>
+                        <textarea id="noteInput" rows="2" placeholder="Örn: Sütaş, İçim..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="urgent-toggle">
+                            <input type="checkbox" id="urgentCheck">
+                            <span>🚨 Acil İhtiyaç</span>
+                        </label>
+                    </div>
+
+                    <button class="submit-btn" onclick="addProduct()">LİSTEYE EKLE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAB -->
+    <button class="fab" id="fab" style="display: none;" onclick="showScreen('addProduct')">
+        <span>➕</span>
+        <span>Ürün Ekle</span>
+    </button>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+    <script type="module">
+        // Firebase Import
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+        import { getFirestore, collection, doc, setDoc, getDoc, updateDoc, deleteDoc, onSnapshot, query, orderBy, serverTimestamp, addDoc } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+
+        // Firebase Config
+        const firebaseConfig = {
+            apiKey: "AIzaSyAXyKXdeLabkvxTs077439S5bCAmM61hk8",
+            authDomain: "listem-f39fc.firebaseapp.com",
+            projectId: "listem-f39fc",
+            storageBucket: "listem-f39fc.firebasestorage.app",
+            messagingSenderId: "822655191952",
+            appId: "1:822655191952:web:bf86413a9fc41c55d58115"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const provider = new GoogleAuthProvider();
+
+        // State
+        let currentUser = null;
+        let currentRoomId = null;
+        let products = [];
+        let selectedQuantity = 1;
+        let selectedUnit = 'Adet';
+        let unsubscribeItems = null;
+
+        // Products URL
+        const PRODUCTS_URL = "https://raw.githubusercontent.com/oozata/ortak-alisveris-listesi/refs/heads/main/products.json";
+
+        // Load Products
+        async function loadProducts() {
+            try {
+                const response = await fetch(PRODUCTS_URL);
+                const data = await response.json();
+                products = data.kategoriler;
+                initCategorySelect();
+            } catch (error) {
+                console.error("Ürün kataloğu yüklenemedi:", error);
+                showToast("Ürün kataloğu yüklenemedi!");
+            }
+        }
+
+        // Auth State
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                currentUser = user;
+                // Check if user has a room
+                const userDoc = await getDoc(doc(db, "users", user.uid));
+                if (userDoc.exists() && userDoc.data().roomId) {
+                    currentRoomId = userDoc.data().roomId;
+                    showScreen('mainList');
+                    startListeningToItems();
+                } else {
+                    showScreen('roomScreen');
+                }
+            } else {
+                currentUser = null;
+                currentRoomId = null;
+                showScreen('loginScreen');
+            }
+        });
+
+        // Login
+        window.loginWithGoogle = async function() {
+            try {
+                await signInWithPopup(auth, provider);
+            } catch (error) {
+                console.error("Giriş hatası:", error);
+                showToast("Giriş yapılamadı!");
+            }
+        };
+
+        // Logout
+        window.logout = async function() {
+            if (unsubscribeItems) unsubscribeItems();
+            await signOut(auth);
+            showScreen('loginScreen');
+        };
+
+        // Create Room
+        window.createRoom = async function() {
+            const roomId = generateRoomCode();
+            await setDoc(doc(db, "rooms", roomId), {
+                createdAt: serverTimestamp()
+            });
+            await setDoc(doc(db, "rooms", roomId, "members", currentUser.uid), {
+                email: currentUser.email,
+                displayName: currentUser.displayName,
+                joinedAt: serverTimestamp()
+            });
+            await setDoc(doc(db, "users", currentUser.uid), {
+                email: currentUser.email,
+                displayName: currentUser.displayName,
+                roomId: roomId
+            });
+            currentRoomId = roomId;
+            document.getElementById('roomCodeDisplay').textContent = roomId;
+            document.getElementById('createRoomSection').style.display = 'none';
+            document.getElementById('roomCreatedSection').style.display = 'block';
+        };
+
+        // Join Room
+        window.joinRoom = async function() {
+            const roomId = document.getElementById('roomCodeInput').value.toUpperCase();
+            if (!roomId || roomId.length !== 6) {
+                showToast("Geçerli bir oda kodu giriniz!");
+                return;
+            }
+            const roomDoc = await getDoc(doc(db, "rooms", roomId));
+            if (!roomDoc.exists()) {
+                showToast("Oda bulunamadı!");
+                return;
+            }
+            await setDoc(doc(db, "rooms", roomId, "members", currentUser.uid), {
+                email: currentUser.email,
+                displayName: currentUser.displayName,
+                joinedAt: serverTimestamp()
+            });
+            await setDoc(doc(db, "users", currentUser.uid), {
+                email: currentUser.email,
+                displayName: currentUser.displayName,
+                roomId: roomId
+            });
+            currentRoomId = roomId;
+            showScreen('mainList');
+            startListeningToItems();
+        };
+
+        // Enter Room
+        window.enterRoom = function() {
+            showScreen('mainList');
+            startListeningToItems();
+        };
+
+        // Show Room Code
+        window.showRoomCode = function() {
+            alert("Oda Kodunuz: " + currentRoomId);
+        };
+
+        // Generate Room Code
+        function generateRoomCode() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let code = '';
+            for (let i = 0; i < 6; i++) {
+                code += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return code;
+        }
+
+        // Listen to Items
+        function startListeningToItems() {
+            if (unsubscribeItems) unsubscribeItems();
+            const q = query(collection(db, "rooms", currentRoomId, "items"), orderBy("createdAt", "desc"));
+            unsubscribeItems = onSnapshot(q, (snapshot) => {
+                renderList(snapshot.docs);
+            });
+        }
+
+        // Render List
+        function renderList(docs) {
+            const container = document.getElementById('listContainer');
+            if (docs.length === 0) {
+                container.innerHTML = '<div class="empty-state">Liste boş! 🛒</div>';
+                return;
+            }
+
+            const items = docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            
+            // Sort
+            items.sort((a, b) => {
+                if (a.alindi !== b.alindi) return a.alindi ? 1 : -1;
+                if (a.acil !== b.acil) return b.acil ? 1 : -1;
+                return (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0);
+            });
+
+            container.innerHTML = items.map(item => {
+                const isBought = item.alindi;
+                const isUrgent = item.acil && !item.alindi;
+
+                return `
+                    <div class="item-card ${isBought ? 'bought' : ''} ${isUrgent ? 'urgent' : ''}">
+                        <button class="delete-btn" onclick="deleteItem('${item.id}')">×</button>
+                        <div class="item-content">
+                            <div class="item-emoji">${item.emoji}</div>
+                            <div class="item-info">
+                                <div class="item-name">
+                                    ${item.ad} (${item.miktar} ${item.birim})
+                                    ${isUrgent ? '🚨' : ''}
+                                </div>
+                                <div class="item-meta">
+                                    Ekleyen: ${item.ekleyen}
+                                    ${item.not ? '<br>' + item.not : ''}
+                                </div>
+                            </div>
+                            <input type="checkbox" class="item-checkbox" 
+                                   ${isBought ? 'checked' : ''} 
+                                   onchange="toggleBought('${item.id}', ${!isBought})">
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Toggle Bought
+        window.toggleBought = async function(itemId, value) {
+            const itemRef = doc(db, "rooms", currentRoomId, "items", itemId);
+            await updateDoc(itemRef, {
+                alindi: value,
+                alan: value ? currentUser.displayName : null,
+                lastModified: serverTimestamp()
+            });
+            if (value) {
+                showToast(`${currentUser.displayName} ürünü aldı! ✅`);
+                playNotificationSound();
+            }
+        };
+
+        // Delete Item
+        window.deleteItem = async function(itemId) {
+            if (!confirm("Bu ürünü silmek istediğinize emin misiniz?")) return;
+            await deleteDoc(doc(db, "rooms", currentRoomId, "items", itemId));
+            showToast("Ürün silindi.");
+        };
+
+        // Add Product
+        window.addProduct = async function() {
+            const katIdx = document.getElementById('categorySelect').value;
+            const prodIdx = document.getElementById('productSelect').value;
+
+            if (!katIdx || !prodIdx) {
+                showToast('Lütfen kategori ve ürün seçiniz!');
+                return;
+            }
+
+            const urun = products[katIdx].urunler[prodIdx];
+            await addDoc(collection(db, "rooms", currentRoomId, "items"), {
+                ad: urun.ad,
+                emoji: urun.emoji,
+                miktar: selectedQuantity,
+                birim: selectedUnit,
+                not: document.getElementById('noteInput').value,
+                acil: document.getElementById('urgentCheck').checked,
+                alindi: false,
+                ekleyen: currentUser.displayName,
+                createdAt: serverTimestamp(),
+                lastModified: serverTimestamp()
+            });
+
+            showToast("Ürün eklendi! 🛒");
+            playNotificationSound();
+
+            // Reset form
+            document.getElementById('categorySelect').value = '';
+            document.getElementById('productSelect').innerHTML = '<option value="">Önce kategori seçiniz...</option>';
+            document.getElementById('productDetails').style.display = 'none';
+            document.getElementById('noteInput').value = '';
+            document.getElementById('urgentCheck').checked = false;
+            selectedQuantity = 1;
+            selectedUnit = 'Adet';
+            document.getElementById('quantityDisplay').textContent = '1';
+            document.querySelectorAll('.unit-btn').forEach(b => b.classList.remove('active'));
+            document.querySelector('.unit-btn[data-unit="Adet"]').classList.add('active');
+
+            goBack();
+        };
+
+        // Init Category Select
+        function initCategorySelect() {
+            const select = document.getElementById('categorySelect');
+            select.innerHTML = '<option value="">Seçiniz...</option>';
+            products.forEach((kat, idx) => {
+                select.innerHTML += `<option value="${idx}">${kat.ikon} ${kat.ad}</option>`;
+            });
+        }
+
+        // Update Products
+        window.updateProducts = function() {
+            const katIdx = document.getElementById('categorySelect').value;
+            const prodSelect = document.getElementById('productSelect');
+            
+            if (katIdx === '') {
+                prodSelect.innerHTML = '<option value="">Önce kategori seçiniz...</option>';
+                document.getElementById('productDetails').style.display = 'none';
+                return;
+            }
+
+            const kategori = products[katIdx];
+            prodSelect.innerHTML = '<option value="">Seçiniz...</option>';
+            kategori.urunler.forEach((urun, idx) => {
+                prodSelect.innerHTML += `<option value="${idx}">${urun.emoji} ${urun.ad}</option>`;
+            });
+        };
+
+        document.getElementById('productSelect').addEventListener('change', function() {
+            document.getElementById('productDetails').style.display = this.value ? 'block' : 'none';
+        });
+
+        // Quantity
+        window.changeQuantity = function(delta) {
+            selectedQuantity = Math.max(0.5, selectedQuantity + delta);
+            document.getElementById('quantityDisplay').textContent = selectedQuantity;
+        };
+
+        // Unit
+        window.selectUnit = function(btn) {
+            document.querySelectorAll('.unit-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            selectedUnit = btn.dataset.unit;
+        };
+
+        // Screen Management
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(screenId).classList.add('active');
+            const fab = document.getElementById('fab');
+            fab.style.display = screenId === 'mainList' ? 'flex' : 'none';
+        }
+        window.showScreen = showScreen;
+
+        window.goBack = function() {
+            showScreen('mainList');
+        };
+
+        // Toast
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+        window.showToast = showToast;
+
+        // Notification Sound
+        function playNotificationSound() {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            oscillator.frequency.value = 800;
+            oscillator.type = 'sine';
+            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.5);
+        }
+
+        // Request Notification Permission
+        if ('Notification' in window && Notification.permission === 'default') {
+            Notification.requestPermission();
+        }
+
+        // Init
+        loadProducts();
+    </script>
+</body>
+</html>
