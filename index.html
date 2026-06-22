@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CoupleList</title>
     <style>
+        :root {
+            --primary-color: #FFC107;
+            --primary-hover: #FFB300;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -26,10 +31,11 @@
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             overflow: hidden;
             position: relative;
+            min-height: 600px;
         }
 
         .header {
-            background: #FFC107;
+            background: var(--primary-color);
             padding: 20px;
             text-align: center;
             color: white;
@@ -73,7 +79,6 @@
             margin-bottom: 40px;
         }
 
-        /* Official Google Sign-In Button Style */
         .google-signin-btn {
             display: inline-flex;
             align-items: center;
@@ -100,14 +105,167 @@
             border-color: #d2d4d7;
         }
 
-        .google-signin-btn:active {
-            background: #e8eaed;
-        }
-
         .google-signin-btn svg {
             width: 20px;
             height: 20px;
             flex-shrink: 0;
+        }
+
+        /* Dashboard Screen */
+        .dashboard-screen {
+            padding: 40px 20px;
+        }
+
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .dashboard-header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .dashboard-header p {
+            color: #666;
+        }
+
+        .user-info {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #2196F3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .user-details h3 {
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .user-details p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .settings-section {
+            margin-bottom: 30px;
+        }
+
+        .settings-section h3 {
+            margin-bottom: 15px;
+            color: #333;
+            font-size: 16px;
+        }
+
+        .setting-btn {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            width: 100%;
+            padding: 15px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 15px;
+        }
+
+        .setting-btn:hover {
+            border-color: var(--primary-color);
+            background: #fffde7;
+        }
+
+        .setting-btn.active {
+            border-color: #4CAF50;
+            background: #e8f5e9;
+        }
+
+        .setting-btn.danger {
+            border-color: #f44336;
+            color: #f44336;
+        }
+
+        .setting-btn.danger:hover {
+            background: #ffebee;
+        }
+
+        .setting-icon {
+            font-size: 24px;
+        }
+
+        .color-picker-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .color-preview {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 3px solid #333;
+        }
+
+        .list-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .action-btn {
+            padding: 20px;
+            border: none;
+            border-radius: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .action-btn.personal {
+            background: #2196F3;
+            color: white;
+        }
+
+        .action-btn.personal:hover {
+            background: #1976D2;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(33, 150, 243, 0.4);
+        }
+
+        .action-btn.shared {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .action-btn.shared:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 193, 7, 0.4);
         }
 
         /* Room Screen */
@@ -134,21 +292,21 @@
             border-radius: 10px;
             font-size: 24px;
             text-align: center;
-            letter-spacing: 8px;
+            letter-spacing: 4px;
             margin: 20px 0;
             text-transform: uppercase;
         }
 
         .room-input:focus {
             outline: none;
-            border-color: #FFC107;
+            border-color: var(--primary-color);
         }
 
         .room-btn {
             display: block;
             width: 100%;
             padding: 18px;
-            background: #FFC107;
+            background: var(--primary-color);
             color: white;
             border: none;
             border-radius: 15px;
@@ -159,7 +317,7 @@
         }
 
         .room-btn:hover {
-            background: #FFB300;
+            background: var(--primary-hover);
         }
 
         .room-btn.secondary {
@@ -170,7 +328,37 @@
             background: #757575;
         }
 
-        /* Color Selector */
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .modal-content h3 {
+            margin-bottom: 20px;
+        }
+
         .color-selector {
             display: flex;
             justify-content: center;
@@ -180,8 +368,8 @@
         }
 
         .color-btn {
-            width: 45px;
-            height: 45px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             border: 3px solid transparent;
             cursor: pointer;
@@ -197,6 +385,34 @@
             border-color: #333;
             transform: scale(1.15);
             box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .modal-buttons button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .modal-buttons .cancel {
+            background: #e0e0e0;
+        }
+
+        .modal-buttons .save {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .modal-buttons .save:hover {
+            background: var(--primary-hover);
         }
 
         /* Liste */
@@ -252,7 +468,7 @@
             width: 28px;
             height: 28px;
             cursor: pointer;
-            accent-color: #FFC107;
+            accent-color: var(--primary-color);
             flex-shrink: 0;
         }
 
@@ -320,7 +536,7 @@
             position: fixed;
             bottom: 30px;
             right: 30px;
-            background: #FFC107;
+            background: var(--primary-color);
             color: white;
             border: none;
             padding: 15px 25px;
@@ -335,7 +551,7 @@
         }
 
         .fab:hover {
-            background: #FFB300;
+            background: var(--primary-hover);
             transform: scale(1.05);
         }
 
@@ -369,7 +585,7 @@
         .form-group input:focus,
         .form-group textarea:focus {
             outline: none;
-            border-color: #FFC107;
+            border-color: var(--primary-color);
         }
 
         .quantity-control {
@@ -385,7 +601,7 @@
             height: 50px;
             border-radius: 50%;
             border: none;
-            background: #FFC107;
+            background: var(--primary-color);
             color: white;
             font-size: 24px;
             cursor: pointer;
@@ -393,7 +609,7 @@
         }
 
         .quantity-btn:hover {
-            background: #FFB300;
+            background: var(--primary-hover);
         }
 
         .quantity-display {
@@ -421,9 +637,9 @@
         }
 
         .unit-btn.active {
-            background: #FFC107;
+            background: var(--primary-color);
             color: white;
-            border-color: #FFC107;
+            border-color: var(--primary-color);
         }
 
         .urgent-toggle {
@@ -452,7 +668,7 @@
         .submit-btn {
             width: 100%;
             padding: 18px;
-            background: #FFC107;
+            background: var(--primary-color);
             color: white;
             border: none;
             border-radius: 15px;
@@ -463,7 +679,7 @@
         }
 
         .submit-btn:hover {
-            background: #FFB300;
+            background: var(--primary-hover);
         }
 
         /* Toast */
@@ -496,7 +712,7 @@
 
         .spinner {
             border: 4px solid #f3f3f3;
-            border-top: 4px solid #FFC107;
+            border-top: 4px solid var(--primary-color);
             border-radius: 50%;
             width: 40px;
             height: 40px;
@@ -508,6 +724,25 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        .list-type-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .list-type-badge.personal {
+            background: #2196F3;
+            color: white;
+        }
+
+        .list-type-badge.shared {
+            background: var(--primary-color);
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -515,7 +750,7 @@
         <!-- Login Screen -->
         <div id="loginScreen" class="screen active">
             <div class="login-screen">
-                <div class="icon">🛒</div>
+                <div class="icon"></div>
                 <h1 style="margin-bottom: 10px;">CoupleList</h1>
                 <p style="color: #666; margin-bottom: 40px;">Ortak Liste, Ortak Hayat</p>
                 <button class="google-signin-btn" onclick="loginWithGoogle()">
@@ -530,52 +765,92 @@
             </div>
         </div>
 
+        <!-- Dashboard Screen -->
+        <div id="dashboardScreen" class="screen dashboard-screen">
+            <div class="dashboard-header">
+                <h1>Hoş Geldin!</h1>
+                <p>Hesabını yönet ve listelerini oluştur</p>
+            </div>
+
+            <div class="user-info">
+                <div class="user-avatar" id="userAvatar">👤</div>
+                <div class="user-details">
+                    <h3 id="userName">Kullanıcı</h3>
+                    <p id="userEmail">email@example.com</p>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <h3>Ayarlar</h3>
+                <button class="setting-btn" onclick="showColorPicker()">
+                    <span class="setting-icon">🎨</span>
+                    <span style="flex: 1; text-align: left;">Rengini Değiştir</span>
+                    <div class="color-preview" id="colorPreview" style="background: #FFC107;"></div>
+                </button>
+                <button class="setting-btn" id="notificationsBtn" onclick="toggleNotifications()">
+                    <span class="setting-icon">🔔</span>
+                    <span style="flex: 1; text-align: left;">Bildirimler</span>
+                    <span id="notificationsStatus">Açık</span>
+                </button>
+            </div>
+
+            <div class="settings-section">
+                <h3>Listeler</h3>
+                <button class="action-btn personal" onclick="createPersonalList()">
+                    <span></span>
+                    <span>Kişisel Liste Oluştur</span>
+                </button>
+                <button class="action-btn shared" onclick="showCreateSharedList()">
+                    <span></span>
+                    <span>Paylaşımlı Liste Oluştur</span>
+                </button>
+            </div>
+
+            <div class="settings-section">
+                <button class="setting-btn danger" onclick="deleteAccount()">
+                    <span class="setting-icon">🗑️</span>
+                    <span style="flex: 1; text-align: left;">Hesabımı Sil</span>
+                </button>
+                <button class="setting-btn" onclick="logout()" style="margin-top: 10px;">
+                    <span class="setting-icon">🚪</span>
+                    <span style="flex: 1; text-align: left;">Çıkış Yap</span>
+                </button>
+            </div>
+        </div>
+
         <!-- Room Screen -->
         <div id="roomScreen" class="screen">
             <div class="room-screen">
-                <h2 style="margin-bottom: 20px;">Oda Kodu</h2>
-                <p style="color: #666; margin-bottom: 20px;">Eşinizle aynı odaya katılın</p>
+                <h2 style="margin-bottom: 20px;">Paylaşımlı Liste</h2>
+                <p style="color: #666; margin-bottom: 20px;">Oda kodunu gir veya yeni oda oluştur</p>
                 
                 <div id="createRoomSection">
-                    <p style="margin-bottom: 10px; font-weight: bold;">Rengini seç:</p>
-                    <div class="color-selector" id="createColorSelector">
-                        <button class="color-btn selected" data-color="#2196F3" onclick="selectColor(this, 'create')" style="background: #2196F3;"></button>
-                        <button class="color-btn" data-color="#E91E63" onclick="selectColor(this, 'create')" style="background: #E91E63;"></button>
-                        <button class="color-btn" data-color="#4CAF50" onclick="selectColor(this, 'create')" style="background: #4CAF50;"></button>
-                        <button class="color-btn" data-color="#FF9800" onclick="selectColor(this, 'create')" style="background: #FF9800;"></button>
-                        <button class="color-btn" data-color="#9C27B0" onclick="selectColor(this, 'create')" style="background: #9C27B0;"></button>
-                        <button class="color-btn" data-color="#00BCD4" onclick="selectColor(this, 'create')" style="background: #00BCD4;"></button>
-                    </div>
-                    <button class="room-btn" onclick="createRoom()">Yeni Oda Oluştur</button>
+                    <button class="room-btn" onclick="createSharedRoom()">Yeni Oda Oluştur</button>
                     <p style="margin: 30px 0 10px; color: #999;">veya</p>
-                    <p style="margin-bottom: 10px; font-weight: bold;">Rengini seç:</p>
-                    <div class="color-selector" id="joinColorSelector">
-                        <button class="color-btn selected" data-color="#2196F3" onclick="selectColor(this, 'join')" style="background: #2196F3;"></button>
-                        <button class="color-btn" data-color="#E91E63" onclick="selectColor(this, 'join')" style="background: #E91E63;"></button>
-                        <button class="color-btn" data-color="#4CAF50" onclick="selectColor(this, 'join')" style="background: #4CAF50;"></button>
-                        <button class="color-btn" data-color="#FF9800" onclick="selectColor(this, 'join')" style="background: #FF9800;"></button>
-                        <button class="color-btn" data-color="#9C27B0" onclick="selectColor(this, 'join')" style="background: #9C27B0;"></button>
-                        <button class="color-btn" data-color="#00BCD4" onclick="selectColor(this, 'join')" style="background: #00BCD4;"></button>
-                    </div>
-                    <input type="text" class="room-input" id="roomCodeInput" placeholder="XXXXXX" maxlength="6">
+                    <input type="text" class="room-input" id="roomCodeInput" placeholder="XXXXXX" maxlength="10">
                     <button class="room-btn secondary" onclick="joinRoom()">Odaya Katıl</button>
                 </div>
 
                 <div id="roomCreatedSection" style="display: none;">
                     <p style="margin-bottom: 10px;">Oda kodunuz:</p>
                     <div class="room-code-display" id="roomCodeDisplay"></div>
-                    <p style="color: #666; margin-bottom: 20px;">Bu kodu eşinizle paylaşın</p>
+                    <p style="color: #666; margin-bottom: 20px;">Bu kodu paylaşın</p>
                     <button class="room-btn" onclick="enterRoom()">Listeye Git →</button>
                 </div>
+
+                <button class="room-btn secondary" onclick="showDashboard()" style="margin-top: 20px;">← Geri Dön</button>
             </div>
         </div>
 
         <!-- Main List Screen -->
         <div id="mainList" class="screen">
             <div class="header">
-                <button onclick="logout()">🚪 Çıkış</button>
-                <span id="headerTitle">CoupleList</span>
-                <button onclick="showRoomCode()"> Kod</button>
+                <button onclick="backToDashboard()">🏠 Ana Menü</button>
+                <span id="headerTitle">
+                    Listem
+                    <span class="list-type-badge personal" id="listTypeBadge">Kişisel</span>
+                </span>
+                <button onclick="showRoomCode()" id="roomCodeBtn" style="display: none;">🔑 Kod</button>
             </div>
             <div class="list-container" id="listContainer">
                 <div class="loading">
@@ -632,12 +907,33 @@
                     <div class="form-group">
                         <label class="urgent-toggle">
                             <input type="checkbox" id="urgentCheck">
-                            <span> Acil İhtiyaç</span>
+                            <span>🚨 Acil İhtiyaç</span>
                         </label>
                     </div>
 
                     <button class="submit-btn" onclick="addProduct()">LİSTEYE EKLE</button>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Color Picker Modal -->
+    <div class="modal" id="colorModal">
+        <div class="modal-content">
+            <h3>Rengini Seç</h3>
+            <div class="color-selector" id="modalColorSelector">
+                <button class="color-btn" data-color="#FFC107" onclick="selectModalColor(this)" style="background: #FFC107;"></button>
+                <button class="color-btn" data-color="#2196F3" onclick="selectModalColor(this)" style="background: #2196F3;"></button>
+                <button class="color-btn" data-color="#E91E63" onclick="selectModalColor(this)" style="background: #E91E63;"></button>
+                <button class="color-btn" data-color="#4CAF50" onclick="selectModalColor(this)" style="background: #4CAF50;"></button>
+                <button class="color-btn" data-color="#FF9800" onclick="selectModalColor(this)" style="background: #FF9800;"></button>
+                <button class="color-btn" data-color="#9C27B0" onclick="selectModalColor(this)" style="background: #9C27B0;"></button>
+                <button class="color-btn" data-color="#00BCD4" onclick="selectModalColor(this)" style="background: #00BCD4;"></button>
+                <button class="color-btn" data-color="#F44336" onclick="selectModalColor(this)" style="background: #F44336;"></button>
+            </div>
+            <div class="modal-buttons">
+                <button class="cancel" onclick="closeColorPicker()">İptal</button>
+                <button class="save" onclick="saveColor()">Kaydet</button>
             </div>
         </div>
     </div>
@@ -652,12 +948,10 @@
     <div class="toast" id="toast"></div>
 
     <script type="module">
-        // Firebase Import
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
         import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
         import { getFirestore, collection, doc, setDoc, getDoc, updateDoc, deleteDoc, onSnapshot, query, orderBy, serverTimestamp, addDoc } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
 
-        // Firebase Config
         const firebaseConfig = {
             apiKey: "AIzaSyAXyKXdeLabkvxTs077439S5bCAmM61hk8",
             authDomain: "listem-f39fc.firebaseapp.com",
@@ -667,26 +961,40 @@
             appId: "1:822655191952:web:bf86413a9fc41c55d58115"
         };
 
-        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
         const provider = new GoogleAuthProvider();
 
-        // State
         let currentUser = null;
         let currentRoomId = null;
+        let currentListType = 'personal';
         let products = [];
         let selectedQuantity = 1;
         let selectedUnit = 'Adet';
         let unsubscribeItems = null;
-        let createRoomColor = '#2196F3';
-        let joinRoomColor = '#2196F3';
+        let selectedColor = '#FFC107';
 
-        // Products URL
         const PRODUCTS_URL = "https://raw.githubusercontent.com/oozata/ortak-alisveris-listesi/refs/heads/main/products.json";
 
-        // Load Products
+        // Renk değiştirme fonksiyonu - CSS değişkenini günceller
+        function applyThemeColor(color) {
+            document.documentElement.style.setProperty('--primary-color', color);
+            // Hover rengi için biraz koyu ton hesapla
+            const hoverColor = darkenColor(color, 10);
+            document.documentElement.style.setProperty('--primary-hover', hoverColor);
+        }
+
+        // Rengi koyulaştırma fonksiyonu
+        function darkenColor(hex, percent) {
+            const num = parseInt(hex.replace('#', ''), 16);
+            const amt = Math.round(2.55 * percent);
+            const R = Math.max((num >> 16) - amt, 0);
+            const G = Math.max((num >> 8 & 0x00FF) - amt, 0);
+            const B = Math.max((num & 0x0000FF) - amt, 0);
+            return '#' + (0x1000000 + R * 0x10000 + G * 0x100 + B).toString(16).slice(1);
+        }
+
         async function loadProducts() {
             try {
                 const response = await fetch(PRODUCTS_URL);
@@ -699,29 +1007,34 @@
             }
         }
 
-        // Auth State
         onAuthStateChanged(auth, async (user) => {
             if (user) {
                 currentUser = user;
                 const userDoc = await getDoc(doc(db, "users", user.uid));
-                if (userDoc.exists() && userDoc.data().roomId) {
-                    currentRoomId = userDoc.data().roomId;
-                    // Kullanıcı rengini yükle
-                    currentUser.color = userDoc.data().color || '#2196F3';
-                    currentUser.colorName = userDoc.data().colorName || 'blue';
-                    showScreen('mainList');
-                    startListeningToItems();
+                if (userDoc.exists()) {
+                    const userData = userDoc.data();
+                    currentUser.color = userData.color || '#FFC107';
+                    currentUser.colorName = userData.colorName || 'yellow';
+                    currentUser.notificationsMuted = userData.notificationsMuted || false;
+                    currentListType = userData.currentListType || 'personal';
+                    currentRoomId = userData.currentRoomId || null;
                 } else {
-                    showScreen('roomScreen');
+                    currentUser.color = '#FFC107';
+                    currentUser.colorName = 'yellow';
+                    currentUser.notificationsMuted = false;
+                    currentListType = 'personal';
                 }
+                // Tema rengini uygula
+                applyThemeColor(currentUser.color);
+                showDashboard();
             } else {
                 currentUser = null;
                 currentRoomId = null;
+                currentListType = 'personal';
                 showScreen('loginScreen');
             }
         });
 
-        // Login
         window.loginWithGoogle = async function() {
             try {
                 await signInWithPopup(auth, provider);
@@ -731,61 +1044,121 @@
             }
         };
 
-        // Logout
         window.logout = async function() {
             if (unsubscribeItems) unsubscribeItems();
             await signOut(auth);
             showScreen('loginScreen');
         };
 
-        // Select Color
-        window.selectColor = function(btn, type) {
-            const selectorId = type === 'create' ? 'createColorSelector' : 'joinColorSelector';
-            document.querySelectorAll(`#${selectorId} .color-btn`).forEach(b => b.classList.remove('selected'));
-            btn.classList.add('selected');
-            if (type === 'create') {
-                createRoomColor = btn.dataset.color;
-            } else {
-                joinRoomColor = btn.dataset.color;
-            }
+        window.showDashboard = function() {
+            if (!currentUser) return;
+            document.getElementById('userName').textContent = currentUser.displayName || 'Kullanıcı';
+            document.getElementById('userEmail').textContent = currentUser.email;
+            document.getElementById('userAvatar').textContent = (currentUser.displayName || 'U')[0].toUpperCase();
+            document.getElementById('userAvatar').style.background = currentUser.color || '#FFC107';
+            document.getElementById('colorPreview').style.background = currentUser.color || '#FFC107';
+            document.getElementById('notificationsStatus').textContent = currentUser.notificationsMuted ? 'Kapalı' : 'Açık';
+            document.getElementById('notificationsBtn').classList.toggle('active', !currentUser.notificationsMuted);
+            showScreen('dashboardScreen');
+            document.getElementById('fab').style.display = 'none';
         };
 
-        // Create Room
-        window.createRoom = async function() {
-            const roomId = generateRoomCode();
-            const colorName = getColorName(createRoomColor);
+        window.toggleNotifications = async function() {
+            if (!currentUser) return;
+            const newStatus = !currentUser.notificationsMuted;
+            await updateDoc(doc(db, "users", currentUser.uid), {
+                notificationsMuted: newStatus
+            });
+            currentUser.notificationsMuted = newStatus;
+            document.getElementById('notificationsStatus').textContent = newStatus ? 'Açık' : 'Kapalı';
+            document.getElementById('notificationsBtn').classList.toggle('active', !newStatus);
+            showToast(newStatus ? 'Bildirimler açıldı' : 'Bildirimler kapatıldı');
+        };
+
+        window.showColorPicker = function() {
+            document.getElementById('modalColorSelector').querySelectorAll('.color-btn').forEach(btn => {
+                btn.classList.toggle('selected', btn.dataset.color === (currentUser.color || '#FFC107'));
+            });
+            selectedColor = currentUser.color || '#FFC107';
+            document.getElementById('colorModal').classList.add('active');
+        };
+
+        window.selectModalColor = function(btn) {
+            document.getElementById('modalColorSelector').querySelectorAll('.color-btn').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+            selectedColor = btn.dataset.color;
+        };
+
+        window.closeColorPicker = function() {
+            document.getElementById('colorModal').classList.remove('active');
+        };
+
+        window.saveColor = async function() {
+            if (!currentUser) return;
+            const colorName = getColorName(selectedColor);
+            await updateDoc(doc(db, "users", currentUser.uid), {
+                color: selectedColor,
+                colorName: colorName
+            });
+            currentUser.color = selectedColor;
+            currentUser.colorName = colorName;
+            document.getElementById('colorPreview').style.background = selectedColor;
+            document.getElementById('userAvatar').style.background = selectedColor;
+            // Tema rengini uygula - tüm uygulama değişir!
+            applyThemeColor(selectedColor);
+            closeColorPicker();
+            showToast('Renk güncellendi');
+        };
+
+        window.createPersonalList = async function() {
+            currentListType = 'personal';
+            currentRoomId = null;
+            await updateDoc(doc(db, "users", currentUser.uid), {
+                currentListType: 'personal',
+                currentRoomId: null
+            });
+            showScreen('mainList');
+            document.getElementById('headerTitle').innerHTML = 'Listem <span class="list-type-badge personal">Kişisel</span>';
+            document.getElementById('roomCodeBtn').style.display = 'none';
+            document.getElementById('fab').style.display = 'flex';
+            startListeningToItems();
+        };
+
+        window.showCreateSharedList = function() {
+            showScreen('roomScreen');
+            document.getElementById('fab').style.display = 'none';
+        };
+
+        window.createSharedRoom = async function() {
+            const roomId = generateRoomCode(8);
+            const colorName = getColorName(currentUser.color || '#FFC107');
             
             await setDoc(doc(db, "rooms", roomId), {
-                createdAt: serverTimestamp()
+                createdAt: serverTimestamp(),
+                createdBy: currentUser.uid
             });
             await setDoc(doc(db, "rooms", roomId, "members", currentUser.uid), {
                 email: currentUser.email,
                 displayName: currentUser.displayName,
-                color: createRoomColor,
+                color: currentUser.color || '#FFC107',
                 colorName: colorName,
                 joinedAt: serverTimestamp()
             });
-            await setDoc(doc(db, "users", currentUser.uid), {
-                email: currentUser.email,
-                displayName: currentUser.displayName,
-                roomId: roomId,
-                color: createRoomColor,
-                colorName: colorName
+            await updateDoc(doc(db, "users", currentUser.uid), {
+                currentListType: 'shared',
+                currentRoomId: roomId
             });
+            currentListType = 'shared';
             currentRoomId = roomId;
-            // currentUser objesine renk bilgisi ekle
-            currentUser.color = createRoomColor;
-            currentUser.colorName = colorName;
             document.getElementById('roomCodeDisplay').textContent = roomId;
             document.getElementById('createRoomSection').style.display = 'none';
             document.getElementById('roomCreatedSection').style.display = 'block';
         };
 
-        // Join Room
         window.joinRoom = async function() {
             const roomId = document.getElementById('roomCodeInput').value.toUpperCase();
-            if (!roomId || roomId.length !== 6) {
-                showToast("Geçerli bir oda kodu giriniz!");
+            if (!roomId || roomId.length < 6) {
+                showToast("En az 6 karakterli kod giriniz!");
                 return;
             }
             const roomDoc = await getDoc(doc(db, "rooms", roomId));
@@ -793,76 +1166,99 @@
                 showToast("Oda bulunamadı!");
                 return;
             }
-            const colorName = getColorName(joinRoomColor);
+            const colorName = getColorName(currentUser.color || '#FFC107');
             
             await setDoc(doc(db, "rooms", roomId, "members", currentUser.uid), {
                 email: currentUser.email,
                 displayName: currentUser.displayName,
-                color: joinRoomColor,
+                color: currentUser.color || '#FFC107',
                 colorName: colorName,
                 joinedAt: serverTimestamp()
             });
-            await setDoc(doc(db, "users", currentUser.uid), {
-                email: currentUser.email,
-                displayName: currentUser.displayName,
-                roomId: roomId,
-                color: joinRoomColor,
-                colorName: colorName
+            await updateDoc(doc(db, "users", currentUser.uid), {
+                currentListType: 'shared',
+                currentRoomId: roomId
             });
+            currentListType = 'shared';
             currentRoomId = roomId;
-            // currentUser objesine renk bilgisi ekle
-            currentUser.color = joinRoomColor;
-            currentUser.colorName = colorName;
-            showScreen('mainList');
-            startListeningToItems();
+            enterRoom();
         };
 
-        // Enter Room
         window.enterRoom = function() {
             showScreen('mainList');
+            document.getElementById('headerTitle').innerHTML = 'Paylaşımlı Liste <span class="list-type-badge shared">Ortak</span>';
+            document.getElementById('roomCodeBtn').style.display = 'block';
+            document.getElementById('fab').style.display = 'flex';
             startListeningToItems();
         };
 
-        // Show Room Code
         window.showRoomCode = function() {
-            alert("Oda Kodunuz: " + currentRoomId);
+            if (currentRoomId) {
+                alert("Oda Kodu: " + currentRoomId);
+            }
         };
 
-        // Generate Room Code
-        function generateRoomCode() {
+        window.backToDashboard = function() {
+            showDashboard();
+        };
+
+        window.deleteAccount = async function() {
+            if (!confirm("Hesabınızı silmek istediğinize emin misiniz? Bu işlem geri alınamaz!")) return;
+            if (!confirm("Tüm listeleriniz ve verileriniz silinecek. Devam etmek istiyor musunuz?")) return;
+            
+            try {
+                if (currentRoomId) {
+                    await deleteDoc(doc(db, "rooms", currentRoomId, "members", currentUser.uid));
+                }
+                await deleteDoc(doc(db, "users", currentUser.uid));
+                await currentUser.delete();
+                showToast("Hesap silindi");
+                await signOut(auth);
+                showScreen('loginScreen');
+            } catch (error) {
+                console.error("Hesap silme hatası:", error);
+                showToast("Hesap silinemedi: " + error.message);
+            }
+        };
+
+        function generateRoomCode(length = 8) {
             const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
             let code = '';
-            for (let i = 0; i < 6; i++) {
+            for (let i = 0; i < length; i++) {
                 code += chars.charAt(Math.floor(Math.random() * chars.length));
             }
             return code;
         }
 
-        // Get Color Name
         function getColorName(colorCode) {
             const colorMap = {
+                '#FFC107': 'yellow',
                 '#2196F3': 'blue',
                 '#F44336': 'red',
                 '#4CAF50': 'green',
                 '#FF9800': 'orange',
                 '#9C27B0': 'purple',
                 '#E91E63': 'pink',
-                '#00BCD4': 'cyan',
-                '#FFC107': 'yellow'
+                '#00BCD4': 'cyan'
             };
-            return colorMap[colorCode] || 'blue';
+            return colorMap[colorCode] || 'yellow';
         }
 
-        // Listen to Items
         function startListeningToItems() {
             if (unsubscribeItems) unsubscribeItems();
-            const q = query(collection(db, "rooms", currentRoomId, "items"), orderBy("createdAt", "desc"));
+            
+            let q;
+            if (currentListType === 'personal') {
+                q = query(collection(db, "personalLists", currentUser.uid, "items"), orderBy("createdAt", "desc"));
+            } else {
+                q = query(collection(db, "rooms", currentRoomId, "items"), orderBy("createdAt", "desc"));
+            }
+            
             unsubscribeItems = onSnapshot(q, (snapshot) => {
                 renderList(snapshot.docs);
             });
         }
 
-        // Render List
         function renderList(docs) {
             const container = document.getElementById('listContainer');
             if (docs.length === 0) {
@@ -881,7 +1277,7 @@
             container.innerHTML = items.map(item => {
                 const isBought = item.alindi;
                 const isUrgent = item.acil && !item.alindi;
-                const colorClass = item.colorName || 'blue';
+                const colorClass = item.colorName || 'yellow';
 
                 return `
                     <div class="item-card ${isBought ? 'bought' : ''} ${isUrgent ? 'urgent' : ''}">
@@ -897,7 +1293,7 @@
                                     ${isUrgent ? '🚨' : ''}
                                 </div>
                                 <div class="item-meta ${colorClass}">
-                                    Ekleyen: ${item.ekleyen}
+                                    ${item.ekleyen ? 'Ekleyen: ' + item.ekleyen : ''}
                                     ${item.not ? '<br>' + item.not : ''}
                                 </div>
                             </div>
@@ -908,28 +1304,39 @@
             }).join('');
         }
 
-        // Toggle Bought
         window.toggleBought = async function(itemId, value) {
-            const itemRef = doc(db, "rooms", currentRoomId, "items", itemId);
+            let itemRef;
+            if (currentListType === 'personal') {
+                itemRef = doc(db, "personalLists", currentUser.uid, "items", itemId);
+            } else {
+                itemRef = doc(db, "rooms", currentRoomId, "items", itemId);
+            }
+            
             await updateDoc(itemRef, {
                 alindi: value,
                 alan: value ? currentUser.displayName : null,
                 lastModified: serverTimestamp()
             });
-            if (value) {
+            if (value && !currentUser.notificationsMuted) {
                 showToast(`${currentUser.displayName} ürünü aldı! ✅`);
                 playNotificationSound();
             }
         };
 
-        // Delete Item
         window.deleteItem = async function(itemId) {
             if (!confirm("Bu ürünü silmek istediğinize emin misiniz?")) return;
-            await deleteDoc(doc(db, "rooms", currentRoomId, "items", itemId));
+            
+            let itemRef;
+            if (currentListType === 'personal') {
+                itemRef = doc(db, "personalLists", currentUser.uid, "items", itemId);
+            } else {
+                itemRef = doc(db, "rooms", currentRoomId, "items", itemId);
+            }
+            
+            await deleteDoc(itemRef);
             showToast("Ürün silindi.");
         };
 
-        // Add Product
         window.addProduct = async function() {
             const katIdx = document.getElementById('categorySelect').value;
             const prodIdx = document.getElementById('productSelect').value;
@@ -940,7 +1347,7 @@
             }
 
             const urun = products[katIdx].urunler[prodIdx];
-            await addDoc(collection(db, "rooms", currentRoomId, "items"), {
+            const itemData = {
                 ad: urun.ad,
                 emoji: urun.emoji,
                 miktar: selectedQuantity,
@@ -948,15 +1355,23 @@
                 not: document.getElementById('noteInput').value,
                 acil: document.getElementById('urgentCheck').checked,
                 alindi: false,
-                ekleyen: currentUser.displayName,
-                color: currentUser.color || '#2196F3',
-                colorName: currentUser.colorName || 'blue',
+                ekleyen: currentListType === 'shared' ? currentUser.displayName : null,
+                color: currentUser.color || '#FFC107',
+                colorName: currentUser.colorName || 'yellow',
                 createdAt: serverTimestamp(),
                 lastModified: serverTimestamp()
-            });
+            };
 
-            showToast("Ürün eklendi! ");
-            playNotificationSound();
+            if (currentListType === 'personal') {
+                await addDoc(collection(db, "personalLists", currentUser.uid, "items"), itemData);
+            } else {
+                await addDoc(collection(db, "rooms", currentRoomId, "items"), itemData);
+            }
+
+            if (!currentUser.notificationsMuted) {
+                showToast("Ürün eklendi! ");
+                playNotificationSound();
+            }
 
             document.getElementById('categorySelect').value = '';
             document.getElementById('productSelect').innerHTML = '<option value="">Önce kategori seçiniz...</option>';
@@ -972,7 +1387,6 @@
             goBack();
         };
 
-        // Init Category Select
         function initCategorySelect() {
             const select = document.getElementById('categorySelect');
             select.innerHTML = '<option value="">Seçiniz...</option>';
@@ -981,7 +1395,6 @@
             });
         }
 
-        // Update Products
         window.updateProducts = function() {
             const katIdx = document.getElementById('categorySelect').value;
             const prodSelect = document.getElementById('productSelect');
@@ -1003,25 +1416,20 @@
             document.getElementById('productDetails').style.display = this.value ? 'block' : 'none';
         });
 
-        // Quantity
         window.changeQuantity = function(delta) {
             selectedQuantity = Math.max(0.5, selectedQuantity + delta);
             document.getElementById('quantityDisplay').textContent = selectedQuantity;
         };
 
-        // Unit
         window.selectUnit = function(btn) {
             document.querySelectorAll('.unit-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
             selectedUnit = btn.dataset.unit;
         };
 
-        // Screen Management
         function showScreen(screenId) {
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
             document.getElementById(screenId).classList.add('active');
-            const fab = document.getElementById('fab');
-            fab.style.display = screenId === 'mainList' ? 'flex' : 'none';
         }
         window.showScreen = showScreen;
 
@@ -1029,7 +1437,6 @@
             showScreen('mainList');
         };
 
-        // Toast
         function showToast(message) {
             const toast = document.getElementById('toast');
             toast.textContent = message;
@@ -1038,7 +1445,6 @@
         }
         window.showToast = showToast;
 
-        // Notification Sound
         function playNotificationSound() {
             const audioContext = new (window.AudioContext || window.webkitAudioContext)();
             const oscillator = audioContext.createOscillator();
@@ -1053,12 +1459,10 @@
             oscillator.stop(audioContext.currentTime + 0.5);
         }
 
-        // Request Notification Permission
         if ('Notification' in window && Notification.permission === 'default') {
             Notification.requestPermission();
         }
 
-        // Init
         loadProducts();
     </script>
 </body>
