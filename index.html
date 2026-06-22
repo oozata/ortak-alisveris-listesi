@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ortak Alışveriş Listesi</title>
+    <title>CoupleList</title>
     <style>
         * {
             margin: 0;
@@ -451,7 +451,7 @@
         <div id="loginScreen" class="screen active">
             <div class="login-screen">
                 <div class="icon">🛒</div>
-                <h1 style="margin-bottom: 10px;">Ortak Alışveriş Listesi</h1>
+                <h1 style="margin-bottom: 10px;">CoupleList</h1>
                 <p style="color: #666; margin-bottom: 40px;">Eşinizle birlikte alışveriş yapın</p>
                 <button class="login-btn google" onclick="loginWithGoogle()">
                     🔵 Google ile Giriş Yap
@@ -593,7 +593,7 @@
         let unsubscribeItems = null;
 
         // Products URL
-        const PRODUCTS_URL = "https://raw.githubusercontent.com/oozata/ortak-alisveris-listesi/refs/heads/main/products.json";
+        const PRODUCTS_URL = "https://raw.githubusercontent.com/oozata/couplelist/refs/heads/main/products.json";
 
         // Load Products
         async function loadProducts() {
