@@ -90,7 +90,7 @@
     },
     {
       "ad": "Sebzeler",
-      "ikon": "",
+      "ikon": "🍅",
       "urunler": [
         {"ad": "Patates", "emoji": "🥔"},
         {"ad": "Havuç", "emoji": "🥕"},
@@ -129,7 +129,7 @@
     },
     {
       "ad": "Meyveler",
-      "ikon": "",
+      "ikon": "🍎",
       "urunler": [
         {"ad": "Elma", "emoji": "🍎"},
         {"ad": "Kırmızı Elma", "emoji": "🍎"},
@@ -192,7 +192,7 @@
     },
     {
       "ad": "Et & Şarküteri",
-      "ikon": "",
+      "ikon": "🍖",
       "urunler": [
         {"ad": "Et", "emoji": "🥩"},
         {"ad": "Kıyma", "emoji": "🥩"},
