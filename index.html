@@ -528,24 +528,43 @@
             color: #999 !important;
         }
 
-        .delete-btn {
-            background: #f44336;
-            color: white;
+        .item-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .delete-btn, .edit-btn {
             border: none;
             width: 32px;
             height: 32px;
             border-radius: 50%;
             cursor: pointer;
-            font-size: 18px;
+            font-size: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-shrink: 0;
             transition: all 0.2s;
+        }
+
+        .delete-btn {
+            background: #f44336;
+            color: white;
         }
 
         .delete-btn:hover {
             background: #d32f2f;
+            transform: scale(1.1);
+        }
+
+        .edit-btn {
+            background: #2196F3;
+            color: white;
+        }
+
+        .edit-btn:hover {
+            background: #1976D2;
             transform: scale(1.1);
         }
 
@@ -572,7 +591,6 @@
             transform: scale(1.05);
         }
 
-        /* Ürün Ekleme - Yeni Arama Tasarımı */
         .add-form {
             padding: 20px;
         }
@@ -729,7 +747,6 @@
             color: #999;
         }
 
-        /* Ürün Detay Formu */
         .product-detail-form {
             display: none;
             animation: slideUp 0.3s ease-out;
@@ -906,7 +923,6 @@
             background: #e0e0e0;
         }
 
-        /* Toast */
         .toast {
             position: fixed;
             top: 20px;
@@ -966,6 +982,51 @@
         .list-type-badge.shared {
             background: var(--primary-color);
             color: white;
+        }
+
+        /* Edit Modal Styles */
+        .edit-modal-content {
+            text-align: left;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .edit-modal-content h3 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .edit-product-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .edit-product-header .ep-emoji {
+            font-size: 36px;
+        }
+
+        .edit-product-header .ep-name {
+            flex: 1;
+            font-weight: bold;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .edit-modal-content .form-group {
+            margin-bottom: 15px;
+        }
+
+        .edit-modal-content .quantity-control {
+            margin: 15px 0;
+        }
+
+        .edit-modal-content .unit-selector {
+            margin-bottom: 15px;
         }
     </style>
 </head>
@@ -1051,7 +1112,7 @@
 
             <div class="settings-section">
                 <button class="setting-btn danger" onclick="deleteAccount()">
-                    <span class="setting-icon">️</span>
+                    <span class="setting-icon">🗑️</span>
                     <span style="flex: 1; text-align: left;">Hesabımı Sil</span>
                 </button>
                 <button class="setting-btn" onclick="logout()" style="margin-top: 10px;">
@@ -1103,7 +1164,7 @@
             </div>
         </div>
 
-        <!-- Add Product Screen - YENİ ARAMA TASARIMI -->
+        <!-- Add Product Screen -->
         <div id="addProduct" class="screen">
             <div class="header">
                 <button onclick="goBack()">← Geri</button>
@@ -1111,31 +1172,27 @@
                 <span></span>
             </div>
             <div class="add-form">
-                <!-- Arama Bölümü -->
                 <div id="searchSection">
                     <div class="search-container">
-                        <span class="search-icon">🔍</span>
+                        <span class="search-icon"></span>
                         <input type="text" class="search-input" id="searchInput" placeholder="Ürün ara... (örn: süt, ekmek, şampuan)" oninput="handleSearch()">
                     </div>
 
                     <button class="custom-product-btn" onclick="showCustomProductForm()">
-                        ️ Katalogda yok mu? Özel ürün ekle
+                        ✏️ Katalogda yok mu? Özel ürün ekle
                     </button>
 
-                    <!-- Kategori Listesi (arama yokken görünür) -->
                     <div id="categoryListSection">
                         <div class="section-title">Kategoriler</div>
                         <div class="category-list" id="categoryList"></div>
                     </div>
 
-                    <!-- Arama Sonuçları -->
                     <div id="searchResultsSection" style="display: none;">
                         <div class="section-title">Sonuçlar</div>
                         <div class="search-results" id="searchResults"></div>
                     </div>
                 </div>
 
-                <!-- Ürün Detay Formu (ürün seçilince görünür) -->
                 <div id="productDetailForm" class="product-detail-form">
                     <div class="selected-product-header">
                         <div class="sp-emoji" id="selectedEmoji"></div>
@@ -1167,7 +1224,7 @@
                     <div class="form-group">
                         <label class="urgent-toggle">
                             <input type="checkbox" id="urgentCheck">
-                            <span>🚨 Acil İhtiyaç</span>
+                            <span> Acil İhtiyaç</span>
                         </label>
                     </div>
 
@@ -1175,7 +1232,6 @@
                     <button class="cancel-selection-btn" onclick="backToSearch()">İptal</button>
                 </div>
 
-                <!-- Özel Ürün Formu -->
                 <div id="customProductForm" class="product-detail-form">
                     <div class="selected-product-header">
                         <div class="sp-emoji">✏️</div>
@@ -1213,7 +1269,7 @@
                     <div class="form-group">
                         <label class="urgent-toggle">
                             <input type="checkbox" id="urgentCheck2">
-                            <span> Acil İhtiyaç</span>
+                            <span>🚨 Acil İhtiyaç</span>
                         </label>
                     </div>
 
@@ -1245,9 +1301,62 @@
         </div>
     </div>
 
+    <!-- Edit Modal -->
+    <div class="modal" id="editModal">
+        <div class="modal-content edit-modal-content">
+            <h3>Ürünü Düzenle</h3>
+            
+            <div class="edit-product-header">
+                <div class="ep-emoji" id="editEmoji"></div>
+                <div class="ep-name" id="editName">Ürün</div>
+            </div>
+
+            <div class="quantity-control">
+                <button class="quantity-btn" onclick="changeEditQuantity(-0.5)">−</button>
+                <div class="quantity-display" id="editQuantityDisplay">1</div>
+                <button class="quantity-btn" onclick="changeEditQuantity(0.5)">+</button>
+            </div>
+
+            <div class="form-group">
+                <label>Birim</label>
+                <div class="unit-selector" id="editUnitSelector">
+                    <button class="unit-btn" data-unit="Adet" onclick="selectEditUnit(this)">Adet</button>
+                    <button class="unit-btn" data-unit="Kg" onclick="selectEditUnit(this)">Kg</button>
+                    <button class="unit-btn" data-unit="Litre" onclick="selectEditUnit(this)">Litre</button>
+                    <button class="unit-btn" data-unit="Koli" onclick="selectEditUnit(this)">Koli</button>
+                    <button class="unit-btn" data-unit="Paket" onclick="selectEditUnit(this)">Paket</button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Not (Marka vb.)</label>
+                <textarea id="editNoteInput" rows="2" placeholder="Örn: Sütaş, İçim..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="urgent-toggle">
+                    <input type="checkbox" id="editUrgentCheck">
+                    <span> Acil İhtiyaç</span>
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label class="urgent-toggle" style="background: #e8f5e9;">
+                    <input type="checkbox" id="editBoughtCheck">
+                    <span style="color: #4CAF50;">✅ Alındı olarak işaretle</span>
+                </label>
+            </div>
+
+            <div class="modal-buttons">
+                <button class="cancel" onclick="closeEditModal()">İptal</button>
+                <button class="save" onclick="saveEdit()">Kaydet</button>
+            </div>
+        </div>
+    </div>
+
     <!-- FAB -->
     <button class="fab" id="fab" style="display: none;" onclick="showAddProduct()">
-        <span>➕</span>
+        <span></span>
         <span>Ürün Ekle</span>
     </button>
 
@@ -1281,8 +1390,13 @@
         let selectedUnit = 'Adet';
         let unsubscribeItems = null;
         let selectedColor = '#FFC107';
-        let selectedProduct = null; // Seçili ürün
-        let isCustomProduct = false; // Özel ürün mü?
+        let selectedProduct = null;
+        let isCustomProduct = false;
+
+        // Edit modal için değişkenler
+        let editingItemId = null;
+        let editQuantity = 1;
+        let editUnit = 'Adet';
 
         const PRODUCTS_URL = "https://raw.githubusercontent.com/oozata/ortak-alisveris-listesi/refs/heads/main/products.json";
 
@@ -1313,7 +1427,6 @@
             }
         }
 
-        // Kategorileri render et
         function renderCategories() {
             const container = document.getElementById('categoryList');
             container.innerHTML = products.map((kat, idx) => `
@@ -1325,7 +1438,6 @@
             `).join('');
         }
 
-        // Kategori seçilince o kategorinin ürünlerini göster
         window.selectCategory = function(idx) {
             const kategori = products[idx];
             const results = kategori.urunler.map(u => ({
@@ -1336,7 +1448,6 @@
             renderSearchResults(results, kategori.ad);
         };
 
-        // Arama yap
         window.handleSearch = function() {
             const query = document.getElementById('searchInput').value.toLowerCase().trim();
             const categoryListSection = document.getElementById('categoryListSection');
@@ -1351,7 +1462,6 @@
             categoryListSection.style.display = 'none';
             searchResultsSection.style.display = 'block';
 
-            // Tüm ürünlerde ara
             const results = [];
             products.forEach(kat => {
                 kat.urunler.forEach(u => {
@@ -1368,7 +1478,6 @@
             renderSearchResults(results, null);
         };
 
-        // Arama sonuçlarını render et
         function renderSearchResults(results, title) {
             const container = document.getElementById('searchResults');
             const titleEl = document.querySelector('#searchResultsSection .section-title');
@@ -1393,14 +1502,12 @@
             `).join('');
         }
 
-        // Ürün seç
         window.selectProduct = function(ad, emoji) {
             selectedProduct = { ad, emoji };
             isCustomProduct = false;
             showProductDetailForm();
         };
 
-        // Özel ürün formunu göster
         window.showCustomProductForm = function() {
             isCustomProduct = true;
             document.getElementById('searchSection').style.display = 'none';
@@ -1410,7 +1517,6 @@
             document.getElementById('customProductName').focus();
         };
 
-        // Ürün detay formunu göster
         function showProductDetailForm() {
             document.getElementById('searchSection').style.display = 'none';
             document.getElementById('customProductForm').classList.remove('active');
@@ -1419,7 +1525,6 @@
             document.getElementById('selectedName').textContent = selectedProduct.ad;
         }
 
-        // Aramaya geri dön
         window.backToSearch = function() {
             document.getElementById('searchSection').style.display = 'block';
             document.getElementById('productDetailForm').classList.remove('active');
@@ -1432,7 +1537,6 @@
             resetForm();
         };
 
-        // Formu sıfırla
         function resetForm() {
             selectedQuantity = 1;
             selectedUnit = 'Adet';
@@ -1732,7 +1836,7 @@
         function renderList(docs) {
             const container = document.getElementById('listContainer');
             if (docs.length === 0) {
-                container.innerHTML = '<div class="empty-state">Liste boş! </div>';
+                container.innerHTML = '<div class="empty-state">Liste boş! 🛒</div>';
                 return;
             }
 
@@ -1766,12 +1870,81 @@
                                     ${item.not ? '<br>' + item.not : ''}
                                 </div>
                             </div>
-                            <button class="delete-btn" onclick="deleteItem('${item.id}')" title="Sil">×</button>
+                            <div class="item-actions">
+                                <button class="edit-btn" onclick="openEditModal('${item.id}', '${item.ad}', '${item.emoji}', ${item.miktar}, '${item.birim}', '${item.not || ''}', ${item.acil}, ${isBought})" title="Düzenle">✏️</button>
+                                <button class="delete-btn" onclick="deleteItem('${item.id}')" title="Sil">×</button>
+                            </div>
                         </div>
                     </div>
                 `;
             }).join('');
         }
+
+        // Edit Modal Fonksiyonları
+        window.openEditModal = function(itemId, ad, emoji, miktar, birim, not, acil, alindi) {
+            editingItemId = itemId;
+            editQuantity = miktar;
+            editUnit = birim;
+            
+            document.getElementById('editEmoji').textContent = emoji;
+            document.getElementById('editName').textContent = ad;
+            document.getElementById('editQuantityDisplay').textContent = miktar;
+            document.getElementById('editNoteInput').value = not;
+            document.getElementById('editUrgentCheck').checked = acil;
+            document.getElementById('editBoughtCheck').checked = alindi;
+            
+            // Birim butonlarını ayarla
+            document.querySelectorAll('#editUnitSelector .unit-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.unit === birim);
+            });
+            
+            document.getElementById('editModal').classList.add('active');
+        };
+
+        window.closeEditModal = function() {
+            document.getElementById('editModal').classList.remove('active');
+            editingItemId = null;
+        };
+
+        window.changeEditQuantity = function(delta) {
+            editQuantity = Math.max(0.5, editQuantity + delta);
+            document.getElementById('editQuantityDisplay').textContent = editQuantity;
+        };
+
+        window.selectEditUnit = function(btn) {
+            document.querySelectorAll('#editUnitSelector .unit-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            editUnit = btn.dataset.unit;
+        };
+
+        window.saveEdit = async function() {
+            if (!editingItemId) return;
+            
+            try {
+                let itemRef;
+                if (currentListType === 'personal') {
+                    itemRef = doc(db, "personalLists", currentUser.uid, "items", editingItemId);
+                } else {
+                    itemRef = doc(db, "rooms", currentRoomId, "items", editingItemId);
+                }
+                
+                await setDoc(itemRef, {
+                    miktar: editQuantity,
+                    birim: editUnit,
+                    not: document.getElementById('editNoteInput').value,
+                    acil: document.getElementById('editUrgentCheck').checked,
+                    alindi: document.getElementById('editBoughtCheck').checked,
+                    alan: document.getElementById('editBoughtCheck').checked ? currentUser.displayName : null,
+                    lastModified: serverTimestamp()
+                }, { merge: true });
+                
+                showToast("Ürün güncellendi! ✅");
+                closeEditModal();
+            } catch (error) {
+                console.error("Güncelleme hatası:", error);
+                showToast("Güncelleme başarısız!");
+            }
+        };
 
         window.toggleBought = async function(itemId, value) {
             try {
@@ -1813,7 +1986,6 @@
             }
         };
 
-        // Katalog ürünü ekle
         window.addProduct = async function() {
             if (!selectedProduct) {
                 showToast('Lütfen bir ürün seçiniz!');
@@ -1843,7 +2015,7 @@
                 }
 
                 if (!currentUser.notificationsMuted) {
-                    showToast("Ürün eklendi! 🛒");
+                    showToast("Ürün eklendi! ");
                     playNotificationSound();
                 }
 
@@ -1854,7 +2026,6 @@
             }
         };
 
-        // Özel ürün ekle
         window.addCustomProduct = async function() {
             const ad = document.getElementById('customProductName').value.trim();
             if (!ad) {
@@ -1896,7 +2067,6 @@
             }
         };
 
-        // FAB tıklandığında ürün ekleme ekranını aç ve formu sıfırla
         window.showAddProduct = function() {
             showScreen('addProduct');
             document.getElementById('fab').style.display = 'none';
