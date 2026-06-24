@@ -1,30 +1,26 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <!-- PWA Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoupleList</title>
+    
+    <!-- PWA Meta Tags (APK'da da çalışır) -->
     <meta name="theme-color" content="#FFC107">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="CoupleList">
-    <link rel="manifest" href="/couplelist/manifest.json">
-    <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/oozata/couplelist/main/icon.png">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CoupleList</title>
+    
     <style>
         :root {
             --primary-color: #FFC107;
             --primary-hover: #FFB300;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
@@ -33,10 +29,8 @@
         /* ===== SPLASH SCREEN ===== */
         #splashScreen {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background: #000;
             display: flex;
             flex-direction: column;
@@ -54,7 +48,7 @@
         .splash-logo {
             width: 200px;
             height: auto;
-            object-fit: contain;            animation: splashFadeIn 1s ease-out, splashBounce 2s ease-in-out infinite 1s;
+            animation: splashFadeIn 1s ease-out, splashBounce 2s ease-in-out infinite 1s;
             margin-bottom: 40px;
         }
 
@@ -72,7 +66,6 @@
             border-radius: 10px;
             width: 0%;
             animation: progressFill 4s ease-in-out forwards;
-            box-shadow: 0 0 10px rgba(255, 193, 7, 0.5);
         }
 
         .loading-text {
@@ -82,28 +75,14 @@
             animation: pulse 1.5s ease-in-out infinite;
         }
 
-        @keyframes splashFadeIn {
-            from { opacity: 0; transform: scale(0.5); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        @keyframes splashBounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-        }
-
-        @keyframes progressFill {
-            0% { width: 0%; }
-            100% { width: 100%; }
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 0.6; }
-            50% { opacity: 1; }
-        }
+        @keyframes splashFadeIn { from { opacity: 0; transform: scale(0.5); } to { opacity: 1; transform: scale(1); } }
+        @keyframes splashBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+        @keyframes progressFill { 0% { width: 0%; } 100% { width: 100%; } }
+        @keyframes pulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
 
         /* ===== CONTAINER ===== */
-        .container {            max-width: 500px;
+        .container {
+            max-width: 500px;
             margin: 0 auto;
             background: white;
             border-radius: 20px;
@@ -134,26 +113,13 @@
             font-size: 14px;
         }
 
-        .header button:hover {
-            background: rgba(255,255,255,0.5);
-        }
+        .screen { display: none; }
+        .screen.active { display: block; }
 
-        .screen {
-            display: none;
-        }
+        /* ===== LOGIN ===== */
+        .login-screen { padding: 40px 20px; text-align: center; }
 
-        .screen.active {
-            display: block;
-        }
-
-        /* ===== LOGIN SCREEN ===== */
-        .login-screen {
-            padding: 40px 20px;
-            text-align: center;
-        }
-
-        .logo-container {            margin-bottom: 30px;
-        }
+        .logo-container { margin-bottom: 30px; }
 
         .logo-wrapper {
             display: inline-flex;
@@ -166,25 +132,11 @@
             margin-bottom: 20px;
         }
 
-        .logo-icon {
-            width: 100px;
-            height: 100px;
-        }
+        .logo-icon { width: 100px; height: 100px; }
 
-        .login-screen h1 {
-            font-size: 28px;
-            font-weight: 700;
-            color: #333;
-            margin-bottom: 8px;
-        }
+        .login-screen h1 { font-size: 28px; font-weight: 700; color: #333; margin-bottom: 8px; }
+        .login-screen .subtitle { color: #666; font-size: 14px; margin-bottom: 30px; }
 
-        .login-screen .subtitle {
-            color: #666;
-            font-size: 14px;
-            margin-bottom: 30px;
-        }
-
-        /* Auth Tabs */
         .auth-tabs {
             display: flex;
             background: #f5f5f5;
@@ -201,24 +153,15 @@
             border-radius: 10px;
             font-size: 15px;
             font-weight: bold;
-            color: #666;            cursor: pointer;
+            color: #666;
+            cursor: pointer;
             transition: all 0.3s;
         }
 
-        .auth-tab.active {
-            background: white;
-            color: #333;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
+        .auth-tab.active { background: white; color: #333; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
 
-        /* Auth Forms */
-        .auth-form {
-            display: none;
-        }
-
-        .auth-form.active {
-            display: block;
-        }
+        .auth-form { display: none; }
+        .auth-form.active { display: block; }
 
         .auth-input {
             width: 100%;
@@ -227,14 +170,9 @@
             border-radius: 12px;
             font-size: 15px;
             margin-bottom: 12px;
-            transition: all 0.2s;
         }
 
-        .auth-input:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            background: #fffde7;
-        }
+        .auth-input:focus { outline: none; border-color: var(--primary-color); background: #fffde7; }
 
         .auth-submit-btn {
             width: 100%;
@@ -247,95 +185,27 @@
             font-weight: bold;
             cursor: pointer;
             margin-top: 10px;
-            transition: all 0.2s;
         }
 
-        .auth-submit-btn:hover {            background: var(--primary-hover);
-        }
+        .auth-submit-btn:hover { background: var(--primary-hover); }
 
-        .auth-submit-btn:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-        }
-
-        .auth-divider {
-            display: flex;
-            align-items: center;
-            margin: 20px 0;
-            color: #999;
+        .auth-error {
+            background: #ffebee;
+            color: #c62828;
+            padding: 10px;
+            border-radius: 8px;
             font-size: 13px;
+            margin-bottom: 12px;
+            display: none;
         }
 
-        .auth-divider::before,
-        .auth-divider::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: #e0e0e0;
-        }
-
-        .auth-divider span {
-            padding: 0 12px;
-        }
-
-        .google-signin-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            background: #ffffff;
-            color: #1f1f1f;
-            border: 1px solid #dadce0;
-            border-radius: 4px;
-            padding: 12px 24px;
-            font-size: 15px;
-            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-            width: 100%;
-        }
-
-        .google-signin-btn:hover {
-            background: #f7f8f8;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);        }
-
-        .google-signin-btn svg {
-            width: 20px;
-            height: 20px;
-            flex-shrink: 0;
-        }
-
-        .auth-note {
-            margin-top: 20px;
-            padding: 12px;
-            background: #e3f2fd;
-            border-radius: 10px;
-            font-size: 12px;
-            color: #1565c0;
-            text-align: left;
-        }
+        .auth-error.show { display: block; }
 
         /* ===== DASHBOARD ===== */
-        .dashboard-screen {
-            padding: 40px 20px;
-        }
-
-        .dashboard-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .dashboard-header h1 {
-            font-size: 28px;
-            margin-bottom: 10px;
-            color: #333;
-        }
-
-        .dashboard-header p {
-            color: #666;
-        }
+        .dashboard-screen { padding: 40px 20px; }
+        .dashboard-header { text-align: center; margin-bottom: 30px; }
+        .dashboard-header h1 { font-size: 28px; margin-bottom: 10px; color: #333; }
+        .dashboard-header p { color: #666; }
 
         .user-info {
             background: #f5f5f5;
@@ -348,7 +218,7 @@
         }
 
         .user-avatar {
-            width: 60px;            height: 60px;
+            width: 60px; height: 60px;
             border-radius: 50%;
             background: #2196F3;
             display: flex;
@@ -359,25 +229,11 @@
             font-weight: bold;
         }
 
-        .user-details h3 {
-            margin-bottom: 5px;
-            color: #333;
-        }
+        .user-details h3 { margin-bottom: 5px; color: #333; }
+        .user-details p { color: #666; font-size: 14px; }
 
-        .user-details p {
-            color: #666;
-            font-size: 14px;
-        }
-
-        .settings-section {
-            margin-bottom: 25px;
-        }
-
-        .settings-section h3 {
-            margin-bottom: 15px;
-            color: #333;
-            font-size: 16px;
-        }
+        .settings-section { margin-bottom: 25px; }
+        .settings-section h3 { margin-bottom: 15px; color: #333; font-size: 16px; }
 
         .setting-btn {
             display: flex;
@@ -394,31 +250,14 @@
             font-size: 15px;
         }
 
-        .setting-btn:hover {
-            border-color: var(--primary-color);
-            background: #fffde7;
-        }
-        .setting-btn.active {
-            border-color: #4CAF50;
-            background: #e8f5e9;
-        }
+        .setting-btn:hover { border-color: var(--primary-color); background: #fffde7; }
+        .setting-btn.active { border-color: #4CAF50; background: #e8f5e9; }
+        .setting-btn.danger { border-color: #f44336; color: #f44336; }
 
-        .setting-btn.danger {
-            border-color: #f44336;
-            color: #f44336;
-        }
-
-        .setting-btn.danger:hover {
-            background: #ffebee;
-        }
-
-        .setting-icon {
-            font-size: 24px;
-        }
+        .setting-icon { font-size: 24px; }
 
         .color-preview {
-            width: 40px;
-            height: 40px;
+            width: 40px; height: 40px;
             border-radius: 50%;
             border: 3px solid #333;
         }
@@ -438,18 +277,9 @@
             width: 100%;
         }
 
-        .action-btn.personal {
-            background: #2196F3;
-            color: white;
-        }
-
-        .action-btn.shared {
-            background: var(--primary-color);
-            color: white;
-        }
-        .action-btn.shared:hover {
-            background: var(--primary-hover);
-        }
+        .action-btn.personal { background: #2196F3; color: white; }
+        .action-btn.shared { background: var(--primary-color); color: white; }
+        .action-btn.shared:hover { background: var(--primary-hover); }
 
         /* List Cards */
         .list-card {
@@ -465,110 +295,55 @@
             transition: all 0.2s;
         }
 
-        .list-card:hover {
-            border-color: var(--primary-color);
-            background: #fffde7;
-        }
-
-        .list-card.personal {
-            border-left: 6px solid #2196F3;
-        }
-
-        .list-card.shared {
-            border-left: 6px solid var(--primary-color);
-        }
-
-        .list-card .list-icon {
-            font-size: 32px;
-        }
-
-        .list-card .list-info {
-            flex: 1;
-        }
-
-        .list-card .list-name {
-            font-weight: bold;
-            font-size: 16px;
-            color: #333;
-            margin-bottom: 4px;
-        }
-
-        .list-card .list-meta {
-            font-size: 12px;
-            color: #999;        }
-
-        .list-card .list-badge {
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 11px;
-            font-weight: bold;
-        }
-
-        .list-badge.personal {
-            background: #E3F2FD;
-            color: #2196F3;
-        }
-
-        .list-badge.shared {
-            background: #FFF9C4;
-            color: #F57F17;
-        }
-
-        .no-lists {
-            text-align: center;
-            padding: 30px;
-            color: #999;
-            font-size: 14px;
-        }
+        .list-card:hover { border-color: var(--primary-color); background: #fffde7; }
+        .list-card.personal { border-left: 6px solid #2196F3; }
+        .list-card.shared { border-left: 6px solid var(--primary-color); }
+        .list-card .list-icon { font-size: 32px; }
+        .list-card .list-info { flex: 1; }
+        .list-card .list-name { font-weight: bold; font-size: 16px; color: #333; margin-bottom: 4px; }
+        .list-card .list-meta { font-size: 12px; color: #999; }
+        .list-card .list-badge { padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: bold; }
+        .list-badge.personal { background: #E3F2FD; color: #2196F3; }
+        .list-badge.shared { background: #FFF9C4; color: #F57F17; }
+        .no-lists { text-align: center; padding: 30px; color: #999; font-size: 14px; }
 
         /* Lists Screen */
-        .lists-screen {
-            padding: 20px;
-        }
-
-        .lists-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-        .lists-header button {
-            background: rgba(0,0,0,0.05);
-            border: none;
-            padding: 10px 16px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        .lists-header h2 {
-            flex: 1;
-            color: #333;            font-size: 22px;
-        }
-
-        .lists-subtitle {
-            color: #666;
-            margin-bottom: 20px;
-            font-size: 14px;
-        }
+        .lists-screen { padding: 20px; }
+        .lists-header { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; }
+        .lists-header button { background: rgba(0,0,0,0.05); border: none; padding: 10px 16px; border-radius: 10px; cursor: pointer; font-size: 16px; }
+        .lists-header h2 { flex: 1; color: #333; font-size: 22px; }
+        .lists-subtitle { color: #666; margin-bottom: 20px; font-size: 14px; }
 
         /* Room Screen */
-        .room-screen {
-            padding: 40px 20px;
-            text-align: center;
-        }
-
+        .room-screen { padding: 40px 20px; text-align: center; }
         .room-code-display {
             background: #f5f5f5;
             padding: 30px;
             border-radius: 15px;
             margin: 30px 0;
-            font-size: 32px;
+            font-size: 28px;
             font-weight: bold;
-            letter-spacing: 6px;
+            letter-spacing: 4px;
             color: #333;
+            word-break: break-all;
         }
+
+        .copy-code-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .copy-code-btn:hover { background: var(--primary-hover); }
 
         .room-input {
             width: 100%;
@@ -582,45 +357,35 @@
             text-transform: uppercase;
         }
 
-        .room-input:focus {
-            outline: none;
-            border-color: var(--primary-color);
-        }
-
         .room-btn {
             display: block;
             width: 100%;
             padding: 18px;
             background: var(--primary-color);
             color: white;
-            border: none;            border-radius: 15px;
+            border: none;
+            border-radius: 15px;
             font-size: 18px;
             font-weight: bold;
             cursor: pointer;
             margin: 10px 0;
         }
 
-        .room-btn.secondary {
-            background: #9E9E9E;
-        }
+        .room-btn.secondary { background: #9E9E9E; }
 
         /* Modal */
         .modal {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background: rgba(0,0,0,0.5);
             z-index: 1000;
             align-items: center;
             justify-content: center;
         }
 
-        .modal.active {
-            display: flex;
-        }
+        .modal.active { display: flex; }
 
         .modal-content {
             background: white;
@@ -631,9 +396,7 @@
             text-align: center;
         }
 
-        .modal-content h3 {
-            margin-bottom: 20px;
-        }
+        .modal-content h3 { margin-bottom: 20px; }
 
         .color-selector {
             display: flex;
@@ -642,56 +405,25 @@
             margin: 20px 0;
             flex-wrap: wrap;
         }
+
         .color-btn {
-            width: 50px;
-            height: 50px;
+            width: 50px; height: 50px;
             border-radius: 50%;
             border: 3px solid transparent;
             cursor: pointer;
-            transition: all 0.3s;
         }
 
-        .color-btn.selected {
-            border-color: #333;
-            transform: scale(1.15);
-        }
+        .color-btn.selected { border-color: #333; transform: scale(1.15); }
 
-        .modal-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .modal-buttons button {
-            flex: 1;
-            padding: 12px;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .modal-buttons .cancel {
-            background: #e0e0e0;
-        }
-
-        .modal-buttons .save {
-            background: var(--primary-color);
-            color: white;
-        }
+        .modal-buttons { display: flex; gap: 10px; margin-top: 20px; }
+        .modal-buttons button { flex: 1; padding: 12px; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; }
+        .modal-buttons .cancel { background: #e0e0e0; }
+        .modal-buttons .save { background: var(--primary-color); color: white; }
 
         /* List Container */
-        .list-container {
-            padding: 20px;
-            min-height: 400px;
-        }
+        .list-container { padding: 20px; min-height: 400px; }
+        .empty-state { text-align: center; padding: 60px 20px; color: #999; font-size: 18px; }
 
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-            color: #999;
-            font-size: 18px;
-        }
         .item-card {
             background: white;
             border-radius: 20px;
@@ -700,14 +432,8 @@
             overflow: hidden;
         }
 
-        .item-card.bought {
-            background: #f5f5f5;
-            opacity: 0.7;
-        }
-
-        .item-card.urgent {
-            border: 3px solid #f44336;
-        }
+        .item-card.bought { background: #f5f5f5; opacity: 0.7; }
+        .item-card.urgent { border: 3px solid #f44336; }
 
         .item-content {
             display: flex;
@@ -726,35 +452,12 @@
         .item-content.cyan { border-left-color: #00BCD4; }
         .item-content.yellow { border-left-color: #FFC107; }
 
-        .item-checkbox {
-            width: 28px;
-            height: 28px;
-            cursor: pointer;
-            accent-color: var(--primary-color);
-        }
-
-        .item-emoji {
-            font-size: 40px;
-        }
-
-        .item-info {
-            flex: 1;
-        }
-        .item-name {
-            font-weight: bold;
-            font-size: 16px;
-            margin-bottom: 5px;
-        }
-
-        .item-card.bought .item-name {
-            text-decoration: line-through;
-            color: #999;
-        }
-
-        .item-meta {
-            font-size: 14px;
-        }
-
+        .item-checkbox { width: 28px; height: 28px; cursor: pointer; accent-color: var(--primary-color); }
+        .item-emoji { font-size: 40px; }
+        .item-info { flex: 1; }
+        .item-name { font-weight: bold; font-size: 16px; margin-bottom: 5px; }
+        .item-card.bought .item-name { text-decoration: line-through; color: #999; }
+        .item-meta { font-size: 14px; }
         .item-meta.blue { color: #2196F3 !important; }
         .item-meta.red { color: #F44336 !important; }
         .item-meta.green { color: #4CAF50 !important; }
@@ -763,42 +466,23 @@
         .item-meta.pink { color: #E91E63 !important; }
         .item-meta.cyan { color: #00BCD4 !important; }
         .item-meta.yellow { color: #FFC107 !important; }
+        .item-card.bought .item-meta { color: #999 !important; }
 
-        .item-card.bought .item-meta {
-            color: #999 !important;
-        }
-
-        .item-actions {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
+        .item-actions { display: flex; flex-direction: column; gap: 8px; }
         .delete-btn, .edit-btn {
-            border: none;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            border: none; width: 32px; height: 32px;
+            border-radius: 50%; cursor: pointer;
+            font-size: 16px; display: flex;
+            align-items: center; justify-content: center;
             color: white;
         }
-
-        .delete-btn {
-            background: #f44336;
-        }
-        .edit-btn {
-            background: #2196F3;
-        }
+        .delete-btn { background: #f44336; }
+        .edit-btn { background: #2196F3; }
 
         /* FAB */
         .fab {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
+            bottom: 30px; right: 30px;
             background: var(--primary-color);
             color: white;
             border: none;
@@ -814,15 +498,8 @@
         }
 
         /* Add Form */
-        .add-form {
-            padding: 20px;
-        }
-
-        .search-container {
-            position: relative;
-            margin-bottom: 20px;
-        }
-
+        .add-form { padding: 20px; }
+        .search-container { position: relative; margin-bottom: 20px; }
         .search-input {
             width: 100%;
             padding: 15px 20px 15px 50px;
@@ -830,18 +507,8 @@
             border-radius: 15px;
             font-size: 16px;
         }
-
-        .search-input:focus {
-            outline: none;
-            border-color: var(--primary-color);
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 18px;            top: 50%;
-            transform: translateY(-50%);
-            font-size: 20px;
-        }
+        .search-input:focus { outline: none; border-color: var(--primary-color); }
+        .search-icon { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); font-size: 20px; }
 
         .custom-product-btn {
             width: 100%;
@@ -856,251 +523,100 @@
             margin-bottom: 20px;
         }
 
-        .section-title {
-            font-size: 14px;
-            font-weight: bold;
-            color: #999;
-            text-transform: uppercase;
-            margin-bottom: 12px;
-        }
-
-        .category-list {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
+        .section-title { font-size: 14px; font-weight: bold; color: #999; text-transform: uppercase; margin-bottom: 12px; }
+        .category-list { display: flex; flex-direction: column; gap: 8px; }
         .category-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 14px 16px;
-            background: #f8f9fa;
-            border-radius: 12px;
-            cursor: pointer;
+            display: flex; align-items: center; gap: 12px;
+            padding: 14px 16px; background: #f8f9fa;
+            border-radius: 12px; cursor: pointer;
             border: 2px solid transparent;
         }
+        .category-item:hover { background: #fffde7; border-color: var(--primary-color); }
+        .category-item .cat-emoji { font-size: 24px; }
+        .category-item .cat-name { flex: 1; font-weight: 500; }
+        .category-item .cat-count { font-size: 12px; color: #999; background: #e0e0e0; padding: 3px 8px; border-radius: 10px; }
 
-        .category-item:hover {
-            background: #fffde7;
-            border-color: var(--primary-color);
-        }
-
-        .category-item .cat-emoji {
-            font-size: 24px;        }
-
-        .category-item .cat-name {
-            flex: 1;
-            font-weight: 500;
-        }
-
-        .category-item .cat-count {
-            font-size: 12px;
-            color: #999;
-            background: #e0e0e0;
-            padding: 3px 8px;
-            border-radius: 10px;
-        }
-
-        .search-results {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            max-height: 400px;
-            overflow-y: auto;
-        }
-
+        .search-results { display: flex; flex-direction: column; gap: 8px; max-height: 400px; overflow-y: auto; }
         .search-result-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 14px 16px;
-            background: white;
-            border: 2px solid #e0e0e0;
-            border-radius: 12px;
+            display: flex; align-items: center; gap: 12px;
+            padding: 14px 16px; background: white;
+            border: 2px solid #e0e0e0; border-radius: 12px;
             cursor: pointer;
         }
+        .search-result-item:hover { border-color: var(--primary-color); background: #fffde7; }
+        .search-result-item .res-emoji { font-size: 28px; }
+        .search-result-item .res-name { flex: 1; font-weight: 500; }
+        .search-result-item .res-category { font-size: 11px; color: #999; background: #f5f5f5; padding: 3px 8px; border-radius: 10px; }
+        .no-results { text-align: center; padding: 30px; color: #999; }
 
-        .search-result-item:hover {
-            border-color: var(--primary-color);
-            background: #fffde7;
-        }
-
-        .search-result-item .res-emoji {
-            font-size: 28px;
-        }
-
-        .search-result-item .res-name {
-            flex: 1;
-            font-weight: 500;
-        }
-
-        .search-result-item .res-category {
-            font-size: 11px;            color: #999;
-            background: #f5f5f5;
-            padding: 3px 8px;
-            border-radius: 10px;
-        }
-
-        .no-results {
-            text-align: center;
-            padding: 30px;
-            color: #999;
-        }
-
-        .product-detail-form {
-            display: none;
-        }
-
-        .product-detail-form.active {
-            display: block;
-        }
+        .product-detail-form { display: none; }
+        .product-detail-form.active { display: block; }
 
         .selected-product-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 16px;
-            background: #f8f9fa;
-            border-radius: 12px;
-            margin-bottom: 20px;
+            display: flex; align-items: center; gap: 12px;
+            padding: 16px; background: #f8f9fa;
+            border-radius: 12px; margin-bottom: 20px;
         }
+        .selected-product-header .sp-emoji { font-size: 36px; }
+        .selected-product-header .sp-name { flex: 1; font-weight: bold; font-size: 18px; }
+        .selected-product-header .sp-change { font-size: 13px; color: var(--primary-color); cursor: pointer; font-weight: bold; }
 
-        .selected-product-header .sp-emoji {
-            font-size: 36px;
-        }
-
-        .selected-product-header .sp-name {
-            flex: 1;
-            font-weight: bold;
-            font-size: 18px;
-        }
-
-        .selected-product-header .sp-change {
-            font-size: 13px;
-            color: var(--primary-color);
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .quantity-control {
-            display: flex;
-            align-items: center;            justify-content: center;
-            gap: 20px;
-            margin: 20px 0;
-        }
-
+        .quantity-control { display: flex; align-items: center; justify-content: center; gap: 20px; margin: 20px 0; }
         .quantity-btn {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            border: none;
+            width: 50px; height: 50px;
+            border-radius: 50%; border: none;
             background: var(--primary-color);
-            color: white;
-            font-size: 24px;
-            cursor: pointer;
-            font-weight: bold;
+            color: white; font-size: 24px;
+            cursor: pointer; font-weight: bold;
         }
+        .quantity-display { font-size: 32px; font-weight: bold; min-width: 80px; text-align: center; }
 
-        .quantity-display {
-            font-size: 32px;
-            font-weight: bold;
-            min-width: 80px;
-            text-align: center;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-            color: #333;
-        }
-
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: bold; color: #333; }
         .form-group textarea {
-            width: 100%;
-            padding: 12px;
+            width: 100%; padding: 12px;
             border: 2px solid #ddd;
-            border-radius: 10px;
-            font-size: 16px;
+            border-radius: 10px; font-size: 16px;
         }
 
-        .unit-selector {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
+        .unit-selector { display: flex; gap: 10px; flex-wrap: wrap; }
+        .unit-btn {
+            flex: 1; min-width: 80px;
+            padding: 12px; border: 2px solid #ddd;
+            background: white; border-radius: 10px;
+            cursor: pointer; font-size: 14px;
         }
-
-        .unit-btn {            flex: 1;
-            min-width: 80px;
-            padding: 12px;
-            border: 2px solid #ddd;
-            background: white;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        .unit-btn.active {
-            background: var(--primary-color);
-            color: white;
-            border-color: var(--primary-color);
-        }
+        .unit-btn.active { background: var(--primary-color); color: white; border-color: var(--primary-color); }
 
         .urgent-toggle {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 15px;
-            background: #ffebee;
-            border-radius: 10px;
-            cursor: pointer;
+            display: flex; align-items: center; gap: 10px;
+            padding: 15px; background: #ffebee;
+            border-radius: 10px; cursor: pointer;
         }
-
-        .urgent-toggle input {
-            width: 24px;
-            height: 24px;
-            cursor: pointer;
-        }
-
-        .urgent-toggle label {
-            color: #f44336;
-            font-weight: bold;
-            cursor: pointer;
-        }
+        .urgent-toggle input { width: 24px; height: 24px; cursor: pointer; }
+        .urgent-toggle label { color: #f44336; font-weight: bold; cursor: pointer; }
 
         .submit-btn {
-            width: 100%;
-            padding: 18px;
+            width: 100%; padding: 18px;
             background: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 15px;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
+            color: white; border: none;
+            border-radius: 15px; font-size: 18px;
+            font-weight: bold; cursor: pointer;
             margin-top: 20px;
         }
+
         .cancel-selection-btn {
-            width: 100%;
-            padding: 14px;
-            background: #f5f5f5;
-            color: #666;
-            border: none;
-            border-radius: 12px;
-            font-size: 16px;
-            cursor: pointer;
+            width: 100%; padding: 14px;
+            background: #f5f5f5; color: #666;
+            border: none; border-radius: 12px;
+            font-size: 16px; cursor: pointer;
             margin-top: 10px;
         }
 
         /* Toast */
         .toast {
             position: fixed;
-            top: 20px;
-            left: 50%;
+            top: 20px; left: 50%;
             transform: translateX(-50%);
             background: rgba(0,0,0,0.9);
             color: white;
@@ -1113,30 +629,18 @@
             max-width: 90%;
             text-align: center;
         }
+        .toast.show { opacity: 1; }
 
-        .toast.show {
-            opacity: 1;
-        }
-
-        .loading {
-            text-align: center;
-            padding: 40px;
-            color: #999;
-        }
-
+        .loading { text-align: center; padding: 40px; color: #999; }
         .spinner {
             border: 4px solid #f3f3f3;
             border-top: 4px solid var(--primary-color);
             border-radius: 50%;
-            width: 40px;
-            height: 40px;
+            width: 40px; height: 40px;
             animation: spin 1s linear infinite;
             margin: 0 auto 20px;
         }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
         .list-type-badge {
             display: inline-block;
@@ -1146,60 +650,19 @@
             font-weight: bold;
             margin-left: 10px;
         }
-
-        .list-type-badge.personal {
-            background: #2196F3;
-            color: white;
-        }
-
-        .list-type-badge.shared {
-            background: var(--primary-color);
-            color: white;
-        }
+        .list-type-badge.personal { background: #2196F3; color: white; }
+        .list-type-badge.shared { background: var(--primary-color); color: white; }
 
         /* Edit Modal */
-        .edit-modal-content {
-            text-align: left;
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-
-        .edit-modal-content h3 {
-            text-align: center;
-        }
-
+        .edit-modal-content { text-align: left; max-height: 80vh; overflow-y: auto; }
+        .edit-modal-content h3 { text-align: center; }
         .edit-product-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 16px;
-            background: #f8f9fa;
-            border-radius: 12px;
-            margin-bottom: 20px;
+            display: flex; align-items: center; gap: 12px;
+            padding: 16px; background: #f8f9fa;
+            border-radius: 12px; margin-bottom: 20px;
         }
-
-        .edit-product-header .ep-emoji {
-            font-size: 36px;
-        }
-        .edit-product-header .ep-name {
-            flex: 1;
-            font-weight: bold;
-            font-size: 18px;
-        }
-
-        .auth-error {
-            background: #ffebee;
-            color: #c62828;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 13px;
-            margin-bottom: 12px;
-            display: none;
-        }
-
-        .auth-error.show {
-            display: block;
-        }
+        .edit-product-header .ep-emoji { font-size: 36px; }
+        .edit-product-header .ep-name { flex: 1; font-weight: bold; font-size: 18px; }
     </style>
 </head>
 <body>
@@ -1230,7 +693,8 @@
                             <circle cx="58" cy="72" r="4" fill="#764ba2"/>
                             <circle cx="77" cy="72" r="4" fill="#764ba2"/>
                             <circle cx="42" cy="30" r="6" fill="#667eea"/>
-                            <path d="M42 38 L42 44" stroke="#667eea" stroke-width="2.5" stroke-linecap="round"/>                            <circle cx="62" cy="30" r="6" fill="#764ba2"/>
+                            <path d="M42 38 L42 44" stroke="#667eea" stroke-width="2.5" stroke-linecap="round"/>
+                            <circle cx="62" cy="30" r="6" fill="#764ba2"/>
                             <path d="M62 38 L62 44" stroke="#764ba2" stroke-width="2.5" stroke-linecap="round"/>
                         </svg>
                     </div>
@@ -1238,48 +702,27 @@
                 <h1>CoupleList</h1>
                 <p class="subtitle">Ortak Liste, Ortak Hayat</p>
 
-                <!-- Auth Tabs -->
                 <div class="auth-tabs">
                     <button class="auth-tab active" onclick="switchAuthTab('login')">Giriş Yap</button>
                     <button class="auth-tab" onclick="switchAuthTab('register')">Kayıt Ol</button>
                 </div>
 
-                <!-- Error Message -->
                 <div class="auth-error" id="authError"></div>
 
-                <!-- Login Form -->
                 <div class="auth-form active" id="loginForm">
                     <input type="email" class="auth-input" id="loginEmail" placeholder="E-posta adresiniz">
                     <input type="password" class="auth-input" id="loginPassword" placeholder="Şifreniz">
                     <button class="auth-submit-btn" onclick="loginWithEmail()">Giriş Yap</button>
                 </div>
 
-                <!-- Register Form -->
                 <div class="auth-form" id="registerForm">
                     <input type="text" class="auth-input" id="registerName" placeholder="Adınız">
                     <input type="email" class="auth-input" id="registerEmail" placeholder="E-posta adresiniz">
                     <input type="password" class="auth-input" id="registerPassword" placeholder="Şifre (en az 6 karakter)">
                     <button class="auth-submit-btn" onclick="registerWithEmail()">Kayıt Ol</button>
                 </div>
-
-                <div class="auth-divider">
-                    <span>veya</span>
-                </div>
-
-                <button class="google-signin-btn" onclick="loginWithGoogle()">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-                        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
-                    </svg>
-                    Google ile giriş yap
-                </button>
-
-                <div class="auth-note">
-                    💡 <strong>İpucu:</strong> APK kullanıyorsanız Email/Şifre ile giriş yapın. Google ile giriş web tarayıcısında daha iyi çalışır.
-                </div>
-            </div>        </div>
+            </div>
+        </div>
 
         <!-- Dashboard Screen -->
         <div id="dashboardScreen" class="screen dashboard-screen">
@@ -1328,7 +771,8 @@
             <div class="settings-section">
                 <button class="setting-btn danger" onclick="deleteAccount()">
                     <span class="setting-icon">🗑️</span>
-                    <span style="flex: 1; text-align: left;">Hesabımı Sil</span>                </button>
+                    <span style="flex: 1; text-align: left;">Hesabımı Sil</span>
+                </button>
                 <button class="setting-btn" onclick="logout()" style="margin-top: 10px;">
                     <span class="setting-icon">🚪</span>
                     <span style="flex: 1; text-align: left;">Çıkış Yap</span>
@@ -1367,7 +811,10 @@
                 <div id="roomCreatedSection" style="display: none;">
                     <p style="margin-bottom: 10px;">Oda kodunuz:</p>
                     <div class="room-code-display" id="roomCodeDisplay"></div>
-                    <p style="color: #666; margin-bottom: 20px;">Bu kodu paylaşın</p>
+                    <button class="copy-code-btn" onclick="copyRoomCode()">
+                        📋 Kodu Kopyala
+                    </button>
+                    <p style="color: #666; margin-bottom: 20px;">Bu kodu eşinle paylaş</p>
                     <button class="room-btn" onclick="enterRoom()">Listeye Git →</button>
                 </div>
 
@@ -1377,7 +824,8 @@
 
         <!-- Main List Screen -->
         <div id="mainList" class="screen">
-            <div class="header">                <button onclick="backToDashboard()">🏠 Ana Menü</button>
+            <div class="header">
+                <button onclick="backToDashboard()">🏠 Ana Menü</button>
                 <span id="headerTitle">
                     Listem
                     <span class="list-type-badge personal">Kişisel</span>
@@ -1427,6 +875,7 @@
                         <div class="sp-name" id="selectedName">Ürün</div>
                         <div class="sp-change" onclick="backToSearch()">Değiştir</div>
                     </div>
+
                     <div class="quantity-control">
                         <button class="quantity-btn" onclick="changeQuantity(-0.5)">−</button>
                         <div class="quantity-display" id="quantityDisplay">1</div>
@@ -1476,6 +925,7 @@
                         <div class="quantity-display" id="quantityDisplay2">1</div>
                         <button class="quantity-btn" onclick="changeQuantity(0.5)">+</button>
                     </div>
+
                     <div class="form-group">
                         <label>Birim</label>
                         <div class="unit-selector">
@@ -1524,7 +974,8 @@
                 <button class="cancel" onclick="closeColorPicker()">İptal</button>
                 <button class="save" onclick="saveColor()">Kaydet</button>
             </div>
-        </div>    </div>
+        </div>
+    </div>
 
     <!-- Yeni Liste Modal -->
     <div class="modal" id="newListModal">
@@ -1574,6 +1025,7 @@
                     <button class="unit-btn" data-unit="Paket" onclick="selectEditUnit(this)">Paket</button>
                 </div>
             </div>
+
             <div class="form-group">
                 <label>Not (Marka vb.)</label>
                 <textarea id="editNoteInput" rows="2" placeholder="Örn: Sütaş, İçim..."></textarea>
@@ -1611,7 +1063,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
-        import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+        import { getAuth, onAuthStateChanged, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
         import { getFirestore, collection, doc, setDoc, getDoc, deleteDoc, onSnapshot, query, orderBy, serverTimestamp, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
 
         const firebaseConfig = {
@@ -1622,10 +1074,10 @@
             messagingSenderId: "822655191952",
             appId: "1:822655191952:web:bf86413a9fc41c55d58115"
         };
+
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
-        const provider = new GoogleAuthProvider();
 
         let currentUser = null;
         let currentRoomId = null;
@@ -1648,11 +1100,14 @@
             setTimeout(() => {
                 const splash = document.getElementById('splashScreen');
                 splash.classList.add('hidden');
-                setTimeout(() => {
-                    splash.style.display = 'none';
-                }, 500);
+                setTimeout(() => { splash.style.display = 'none'; }, 500);
             }, 4000);
         });
+
+        // Bildirim izni iste
+        if ('Notification' in window && Notification.permission === 'default') {
+            Notification.requestPermission();
+        }
 
         // Auth Tab Switch
         window.switchAuthTab = function(tab) {
@@ -1666,12 +1121,12 @@
                 document.querySelectorAll('.auth-tab')[1].classList.add('active');
                 document.getElementById('registerForm').classList.add('active');
             }
-            
             hideAuthError();
         };
 
         function showAuthError(message) {
-            const errorEl = document.getElementById('authError');            errorEl.textContent = message;
+            const errorEl = document.getElementById('authError');
+            errorEl.textContent = message;
             errorEl.classList.add('show');
         }
 
@@ -1679,7 +1134,6 @@
             document.getElementById('authError').classList.remove('show');
         }
 
-        // Email/Password Register
         window.registerWithEmail = async function() {
             const name = document.getElementById('registerName').value.trim();
             const email = document.getElementById('registerEmail').value.trim();
@@ -1709,7 +1163,6 @@
             }
         };
 
-        // Email/Password Login
         window.loginWithEmail = async function() {
             const email = document.getElementById('loginEmail').value.trim();
             const password = document.getElementById('loginPassword').value;
@@ -1720,29 +1173,15 @@
             }
 
             try {
-                await signInWithEmailAndPassword(auth, email, password);                showToast('Giriş başarılı! 👋');
+                await signInWithEmailAndPassword(auth, email, password);
+                showToast('Giriş başarılı! 👋');
             } catch (error) {
                 console.error("Giriş hatası:", error);
                 let msg = 'Giriş başarısız!';
-                if (error.code === 'auth/user-not-found') msg = 'Kullanıcı bulunamadı!';
+                if (error.code === 'auth/user-not-found' || error.code === 'auth/invalid-credential') msg = 'Email veya şifre yanlış!';
                 else if (error.code === 'auth/wrong-password') msg = 'Yanlış şifre!';
                 else if (error.code === 'auth/invalid-email') msg = 'Geçersiz email!';
-                else if (error.code === 'auth/invalid-credential') msg = 'Email veya şifre yanlış!';
                 showAuthError(msg);
-            }
-        };
-
-        // Google Login
-        window.loginWithGoogle = async function() {
-            try {
-                await signInWithPopup(auth, provider);
-            } catch (error) {
-                console.error("Giriş hatası:", error);
-                if (error.code === 'auth/popup-blocked' || error.code === 'auth/operation-not-supported-in-this-environment') {
-                    showAuthError('Google ile giriş bu ortamda çalışmıyor. Email/Şifre ile giriş yapın.');
-                } else {
-                    showAuthError('Giriş yapılamadı!');
-                }
             }
         };
 
@@ -1769,7 +1208,8 @@
                 renderCategories();
             } catch (error) {
                 console.error("Ürün kataloğu yüklenemedi:", error);
-            }        }
+            }
+        }
 
         function renderCategories() {
             const container = document.getElementById('categoryList');
@@ -1818,7 +1258,8 @@
                             kategoriIkon: kat.ikon
                         });
                     }
-                });            });
+                });
+            });
 
             renderSearchResults(results, null);
         };
@@ -1826,7 +1267,6 @@
         function renderSearchResults(results, title) {
             const container = document.getElementById('searchResults');
             const titleEl = document.querySelector('#searchResultsSection .section-title');
-            
             if (title) titleEl.textContent = title;
             else titleEl.textContent = 'Sonuçlar';
 
@@ -1867,7 +1307,8 @@
             document.getElementById('selectedName').textContent = selectedProduct.ad;
         }
 
-        window.backToSearch = function() {            document.getElementById('searchSection').style.display = 'block';
+        window.backToSearch = function() {
+            document.getElementById('searchSection').style.display = 'block';
             document.getElementById('productDetailForm').classList.remove('active');
             document.getElementById('customProductForm').classList.remove('active');
             document.getElementById('searchInput').value = '';
@@ -1899,7 +1340,6 @@
             const userDoc = await getDoc(doc(db, "users", currentUser.uid));
             const userData = userDoc.data() || {};
             const joinedRooms = userData.joinedRooms || [];
-            
             if (!joinedRooms.includes(roomId)) {
                 joinedRooms.push(roomId);
                 await saveUserData({ joinedRooms: joinedRooms });
@@ -1908,7 +1348,6 @@
 
         async function loadMyLists() {
             const container = document.getElementById('myListsContainer');
-            
             try {
                 const userDoc = await getDoc(doc(db, "users", currentUser.uid));
                 const userData = userDoc.data() || {};
@@ -1916,7 +1355,8 @@
                 
                 let html = `
                     <div class="list-card personal" onclick="openPersonalList()">
-                        <div class="list-icon">📝</div>                        <div class="list-info">
+                        <div class="list-icon">📝</div>
+                        <div class="list-info">
                             <div class="list-name">Kişisel Listem</div>
                             <div class="list-meta">Sadece sen görebilirsin</div>
                         </div>
@@ -1934,7 +1374,6 @@
                                 const membersRef = collection(db, "rooms", roomId, "members");
                                 const membersSnapshot = await getDocs(membersRef);
                                 const memberCount = membersSnapshot.size;
-                                
                                 html += `
                                     <div class="list-card shared" onclick="openSharedList('${roomId}')">
                                         <div class="list-icon">👥</div>
@@ -1951,7 +1390,6 @@
                         }
                     }
                 }
-                
                 container.innerHTML = html;
             } catch (error) {
                 console.error("Listeler yüklenemedi:", error);
@@ -1965,7 +1403,8 @@
             await saveUserData({ currentListType: 'personal', currentRoomId: null });
             showScreen('mainList');
             document.getElementById('headerTitle').innerHTML = 'Listem <span class="list-type-badge personal">Kişisel</span>';
-            document.getElementById('roomCodeBtn').style.display = 'none';            document.getElementById('fab').style.display = 'flex';
+            document.getElementById('roomCodeBtn').style.display = 'none';
+            document.getElementById('fab').style.display = 'flex';
             startListeningToItems();
         };
 
@@ -1998,7 +1437,6 @@
                     currentUser.notificationsMuted = false;
                     currentListType = 'personal';
                     currentRoomId = null;
-                    
                     await saveUserData({
                         email: currentUser.email,
                         displayName: currentUser.displayName || currentUser.email.split('@')[0],
@@ -2014,7 +1452,8 @@
                 
                 applyThemeColor(currentUser.color);
                 showDashboard();
-            } else {                currentUser = null;
+            } else {
+                currentUser = null;
                 currentRoomId = null;
                 currentListType = 'personal';
                 showScreen('loginScreen');
@@ -2064,6 +1503,7 @@
             document.getElementById('fab').style.display = 'flex';
             startListeningToItems();
         };
+
         window.showCreateSharedListFromModal = function() {
             closeNewListModal();
             showScreen('roomScreen');
@@ -2077,6 +1517,11 @@
             currentUser.notificationsMuted = newStatus;
             document.getElementById('notificationsStatus').textContent = newStatus ? 'Açık' : 'Kapalı';
             document.getElementById('notificationsBtn').classList.toggle('active', !newStatus);
+            
+            if (newStatus && 'Notification' in window && Notification.permission === 'default') {
+                Notification.requestPermission();
+            }
+            
             showToast(newStatus ? 'Bildirimler açıldı' : 'Bildirimler kapatıldı');
         };
 
@@ -2112,7 +1557,8 @@
         };
 
         window.createSharedRoom = async function() {
-            try {                const roomId = generateRoomCode(8);
+            try {
+                const roomId = generateRoomCode(8);
                 const colorName = getColorName(currentUser.color || '#FFC107');
                 
                 await setDoc(doc(db, "rooms", roomId), {
@@ -2152,7 +1598,6 @@
                     return;
                 }
                 const colorName = getColorName(currentUser.color || '#FFC107');
-                
                 await setDoc(doc(db, "rooms", roomId, "members", currentUser.uid), {
                     email: currentUser.email,
                     displayName: currentUser.displayName,
@@ -2161,7 +1606,8 @@
                     joinedAt: serverTimestamp()
                 });
                 await addRoomToUser(roomId);
-                await saveUserData({ currentListType: 'shared', currentRoomId: roomId });                currentListType = 'shared';
+                await saveUserData({ currentListType: 'shared', currentRoomId: roomId });
+                currentListType = 'shared';
                 currentRoomId = roomId;
                 enterRoom();
             } catch (error) {
@@ -2179,7 +1625,22 @@
         };
 
         window.showRoomCode = function() {
-            if (currentRoomId) alert("Oda Kodu: " + currentRoomId);
+            if (currentRoomId) {
+                navigator.clipboard.writeText(currentRoomId).then(() => {
+                    showToast('Kod kopyalandı: ' + currentRoomId);
+                }).catch(() => {
+                    alert("Oda Kodu: " + currentRoomId);
+                });
+            }
+        };
+
+        window.copyRoomCode = function() {
+            const code = document.getElementById('roomCodeDisplay').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                showToast('Kod kopyalandı! 📋');
+            }).catch(() => {
+                alert("Kod: " + code);
+            });
         };
 
         window.backToDashboard = function() {
@@ -2190,11 +1651,8 @@
             if (!currentUser) return;
             if (!confirm("Hesabınızı silmek istediğinize emin misiniz?")) return;
             if (!confirm("Tüm verileriniz silinecek. Devam?")) return;
-            
             try {
-                if (currentRoomId) {
-                    await deleteDoc(doc(db, "rooms", currentRoomId, "members", currentUser.uid));
-                }
+                if (currentRoomId) await deleteDoc(doc(db, "rooms", currentRoomId, "members", currentUser.uid));
                 const personalItems = await getDocs(collection(db, "personalLists", currentUser.uid, "items"));
                 await Promise.all(personalItems.docs.map(d => deleteDoc(d.ref)));
                 await deleteDoc(doc(db, "users", currentUser.uid));
@@ -2203,16 +1661,14 @@
                 await signOut(auth);
                 showScreen('loginScreen');
             } catch (error) {
-                console.error("Hesap silme hatası:", error);
                 showToast("Hesap silinemedi: " + error.message);
             }
         };
 
         function generateRoomCode(length = 8) {
             const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-            let code = '';            for (let i = 0; i < length; i++) {
-                code += chars.charAt(Math.floor(Math.random() * chars.length));
-            }
+            let code = '';
+            for (let i = 0; i < length; i++) code += chars.charAt(Math.floor(Math.random() * chars.length));
             return code;
         }
 
@@ -2225,32 +1681,30 @@
             return colorMap[colorCode] || 'yellow';
         }
 
-        function playNotificationSound() {
-            try {
-                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                const oscillator = audioContext.createOscillator();
-                const gainNode = audioContext.createGain();
-                oscillator.connect(gainNode);
-                gainNode.connect(audioContext.destination);
-                oscillator.frequency.value = 800;
-                oscillator.type = 'sine';
-                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
-                oscillator.start(audioContext.currentTime);
-                oscillator.stop(audioContext.currentTime + 0.5);
-            } catch (error) {}
-        }
-
+        // Bildirim sistemi - Telefonun kendi sesi
         function triggerNotification(title, body) {
             if (currentUser && !currentUser.notificationsMuted) {
-                playNotificationSound();
                 showToast(body);
                 
-                if (document.hidden && 'Notification' in window && Notification.permission === 'granted') {
+                if ('Notification' in window && Notification.permission === 'granted') {
                     try {
-                        const notification = new Notification(title, { body: body, icon: '🛒' });
+                        const notification = new Notification(title, {
+                            body: body,
+                            icon: 'https://raw.githubusercontent.com/oozata/couplelist/main/icon.png',
+                            badge: 'https://raw.githubusercontent.com/oozata/couplelist/main/icon.png',
+                            vibrate: [200, 100, 200],
+                            sound: 'default',
+                            tag: 'couplelist-notification',
+                            requireInteraction: false
+                        });
+                        notification.onclick = () => {
+                            window.focus();
+                            notification.close();
+                        };
                         setTimeout(() => notification.close(), 5000);
-                    } catch (error) {}
+                    } catch (error) {
+                        console.error("Bildirim hatası:", error);
+                    }
                 }
             }
         }
@@ -2259,21 +1713,22 @@
             if (unsubscribeItems) unsubscribeItems();
             let q;
             if (currentListType === 'personal') {
-                q = query(collection(db, "personalLists", currentUser.uid, "items"), orderBy("createdAt", "desc"));            } else {
+                q = query(collection(db, "personalLists", currentUser.uid, "items"), orderBy("createdAt", "desc"));
+            } else {
                 q = query(collection(db, "rooms", currentRoomId, "items"), orderBy("createdAt", "desc"));
             }
             unsubscribeItems = onSnapshot(q, (snapshot) => {
                 snapshot.docChanges().forEach((change) => {
-                    if (change.type === 'added' && change.doc.metadata.hasPendingWrites === false) {
-                        const data = change.doc.data();
-                        if (data.ekleyen && data.ekleyen !== currentUser.displayName) {
-                            triggerNotification('Yeni Ürün', `${data.ekleyen} "${data.ad}" ekledi`);
-                        }
-                    } else if (change.type === 'modified') {
-                        const data = change.doc.data();
-                        if (data.alan && data.alan !== currentUser.displayName && data.alindi) {
-                            triggerNotification('Ürün Alındı', `${data.alan} "${data.ad}" aldı`);
-                        }
+                    // Kendi işlemlerimiz için bildirim gönderme
+                    if (change.doc.metadata.hasPendingWrites) return;
+                    
+                    const data = change.doc.data();
+                    const isMyAction = data.ekleyen === currentUser.displayName || data.alan === currentUser.displayName;
+                    
+                    if (change.type === 'added' && !isMyAction && data.ekleyen) {
+                        triggerNotification('Yeni Ürün Eklendi', `${data.ekleyen} "${data.ad}" ekledi`);
+                    } else if (change.type === 'modified' && !isMyAction && data.alan && data.alindi) {
+                        triggerNotification('Ürün Alındı', `${data.alan} "${data.ad}" ürününü aldı`);
                     }
                 });
                 renderList(snapshot.docs);
@@ -2308,7 +1763,8 @@
                             <div class="item-emoji">${item.emoji}</div>
                             <div class="item-info">
                                 <div class="item-name">
-                                    ${item.ad} (${item.miktar} ${item.birim})                                    ${isUrgent ? '🚨' : ''}
+                                    ${item.ad} (${item.miktar} ${item.birim})
+                                    ${isUrgent ? '🚨' : ''}
                                 </div>
                                 <div class="item-meta ${colorClass}">
                                     ${item.ekleyen ? 'Ekleyen: ' + item.ekleyen : ''}
@@ -2329,18 +1785,15 @@
             editingItemId = itemId;
             editQuantity = miktar;
             editUnit = birim;
-            
             document.getElementById('editEmoji').textContent = emoji;
             document.getElementById('editName').textContent = ad;
             document.getElementById('editQuantityDisplay').textContent = miktar;
             document.getElementById('editNoteInput').value = not;
             document.getElementById('editUrgentCheck').checked = acil;
             document.getElementById('editBoughtCheck').checked = alindi;
-            
             document.querySelectorAll('#editUnitSelector .unit-btn').forEach(btn => {
                 btn.classList.toggle('active', btn.dataset.unit === birim);
             });
-            
             document.getElementById('editModal').classList.add('active');
         };
 
@@ -2357,19 +1810,15 @@
         window.selectEditUnit = function(btn) {
             document.querySelectorAll('#editUnitSelector .unit-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            editUnit = btn.dataset.unit;        };
+            editUnit = btn.dataset.unit;
+        };
 
         window.saveEdit = async function() {
             if (!editingItemId) return;
-            
             try {
                 let itemRef;
-                if (currentListType === 'personal') {
-                    itemRef = doc(db, "personalLists", currentUser.uid, "items", editingItemId);
-                } else {
-                    itemRef = doc(db, "rooms", currentRoomId, "items", editingItemId);
-                }
-                
+                if (currentListType === 'personal') itemRef = doc(db, "personalLists", currentUser.uid, "items", editingItemId);
+                else itemRef = doc(db, "rooms", currentRoomId, "items", editingItemId);
                 await setDoc(itemRef, {
                     miktar: editQuantity,
                     birim: editUnit,
@@ -2379,11 +1828,9 @@
                     alan: document.getElementById('editBoughtCheck').checked ? currentUser.displayName : null,
                     lastModified: serverTimestamp()
                 }, { merge: true });
-                
                 showToast("Güncellendi! ✅");
                 closeEditModal();
             } catch (error) {
-                console.error("Güncelleme hatası:", error);
                 showToast("Güncelleme başarısız!");
             }
         };
@@ -2391,11 +1838,8 @@
         window.toggleBought = async function(itemId, value) {
             try {
                 let itemRef;
-                if (currentListType === 'personal') {
-                    itemRef = doc(db, "personalLists", currentUser.uid, "items", itemId);
-                } else {
-                    itemRef = doc(db, "rooms", currentRoomId, "items", itemId);
-                }
+                if (currentListType === 'personal') itemRef = doc(db, "personalLists", currentUser.uid, "items", itemId);
+                else itemRef = doc(db, "rooms", currentRoomId, "items", itemId);
                 await setDoc(itemRef, {
                     alindi: value,
                     alan: value ? currentUser.displayName : null,
@@ -2406,14 +1850,12 @@
             }
         };
 
-        window.deleteItem = async function(itemId) {            if (!confirm("Bu ürünü silmek istediğinize emin misiniz?")) return;
+        window.deleteItem = async function(itemId) {
+            if (!confirm("Bu ürünü silmek istediğinize emin misiniz?")) return;
             try {
                 let itemRef;
-                if (currentListType === 'personal') {
-                    itemRef = doc(db, "personalLists", currentUser.uid, "items", itemId);
-                } else {
-                    itemRef = doc(db, "rooms", currentRoomId, "items", itemId);
-                }
+                if (currentListType === 'personal') itemRef = doc(db, "personalLists", currentUser.uid, "items", itemId);
+                else itemRef = doc(db, "rooms", currentRoomId, "items", itemId);
                 await deleteDoc(itemRef);
                 showToast("Silindi.");
             } catch (error) {
@@ -2422,11 +1864,7 @@
         };
 
         window.addProduct = async function() {
-            if (!selectedProduct) {
-                showToast('Lütfen ürün seçin!');
-                return;
-            }
-
+            if (!selectedProduct) { showToast('Lütfen ürün seçin!'); return; }
             try {
                 const itemData = {
                     ad: selectedProduct.ad,
@@ -2442,31 +1880,18 @@
                     createdAt: serverTimestamp(),
                     lastModified: serverTimestamp()
                 };
-
-                if (currentListType === 'personal') {
-                    await addDoc(collection(db, "personalLists", currentUser.uid, "items"), itemData);
-                } else {
-                    await addDoc(collection(db, "rooms", currentRoomId, "items"), itemData);
-                }
-
-                if (!currentUser.notificationsMuted) {
-                    showToast("Eklendi! 🛒");
-                    playNotificationSound();
-                }
-
+                if (currentListType === 'personal') await addDoc(collection(db, "personalLists", currentUser.uid, "items"), itemData);
+                else await addDoc(collection(db, "rooms", currentRoomId, "items"), itemData);
+                if (!currentUser.notificationsMuted) showToast("Eklendi! 🛒");
                 backToSearch();
-            } catch (error) {                console.error("Ekleme hatası:", error);
+            } catch (error) {
                 showToast("Eklenemedi!");
             }
         };
 
         window.addCustomProduct = async function() {
             const ad = document.getElementById('customProductName').value.trim();
-            if (!ad) {
-                showToast('Ürün adını girin!');
-                return;
-            }
-
+            if (!ad) { showToast('Ürün adını girin!'); return; }
             try {
                 const itemData = {
                     ad: ad,
@@ -2482,21 +1907,11 @@
                     createdAt: serverTimestamp(),
                     lastModified: serverTimestamp()
                 };
-
-                if (currentListType === 'personal') {
-                    await addDoc(collection(db, "personalLists", currentUser.uid, "items"), itemData);
-                } else {
-                    await addDoc(collection(db, "rooms", currentRoomId, "items"), itemData);
-                }
-
-                if (!currentUser.notificationsMuted) {
-                    showToast("Eklendi! 🛒");
-                    playNotificationSound();
-                }
-
+                if (currentListType === 'personal') await addDoc(collection(db, "personalLists", currentUser.uid, "items"), itemData);
+                else await addDoc(collection(db, "rooms", currentRoomId, "items"), itemData);
+                if (!currentUser.notificationsMuted) showToast("Eklendi! 🛒");
                 backToSearch();
             } catch (error) {
-                console.error("Ekleme hatası:", error);
                 showToast("Eklenemedi!");
             }
         };
@@ -2504,7 +1919,8 @@
         window.showAddProduct = function() {
             showScreen('addProduct');
             document.getElementById('fab').style.display = 'none';
-            resetForm();            backToSearch();
+            resetForm();
+            backToSearch();
         };
 
         window.changeQuantity = function(delta) {
@@ -2537,10 +1953,6 @@
             setTimeout(() => toast.classList.remove('show'), 3000);
         }
         window.showToast = showToast;
-
-        if ('Notification' in window && Notification.permission === 'default') {
-            Notification.requestPermission();
-        }
 
         loadProducts();
     </script>
